@@ -46,5 +46,20 @@ check "secret behind a = flag" '{"tool_name":"Bash","tool_input":{"command":"doc
 check "quoted secret mid-pipeline" '{"tool_name":"Bash","tool_input":{"command":"grep TOKEN \"backend/.env\" | head"}}' deny
 check "keytool against a .jks" '{"tool_name":"Bash","tool_input":{"command":"keytool -list -keystore android/app/debug.jks"}}' deny
 
+echo "Missing jq must fail closed, not open:"
+check_without_jq() { # description, payload — expects deny
+  local bin out
+  bin=$(mktemp -d)
+  for tool in cat grep tr; do ln -s "$(command -v "$tool")" "$bin/$tool"; done
+  out=$(printf '%s' "$2" | PATH="$bin" "$BASH" "$HOOK" 2>/dev/null)
+  rm -r "$bin"
+  if [ -n "$out" ]; then
+    pass=$((pass + 1)); printf '  ok   %s\n' "$1"
+  else
+    fail=$((fail + 1)); printf '  FAIL %s (got allow, want deny)\n' "$1"
+  fi
+}
+check_without_jq "read .env with jq missing" '{"tool_name":"Read","tool_input":{"file_path":"backend/.env"}}'
+
 printf '\n%d passed, %d failed\n' "$pass" "$fail"
 [ "$fail" -eq 0 ]

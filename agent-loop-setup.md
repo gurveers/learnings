@@ -1,6 +1,8 @@
 # Setting up an agent loop for Android
 
-> **Status: designed, not yet run end to end.** These files have not been used on a real Android project yet. The secrets hook has a regression suite that passes (20/20), and the ktlint hook was tested on its own with ktlint 1.8.0. The allowlist, `/verify` and the reviewer agent have never had a Gradle project to run against. I'll update this note once they have.
+> **Status: designed, not yet run end to end.** These files have not been used on a real Android project yet. The secrets hook has a regression suite that passes (21/21), and the ktlint hook was tested on its own with ktlint 1.8.0.
+>
+> Checked against Claude Code 2.1.296, jq 1.7.1, ktlint 1.8.0 and Android CLI 1.0.16261425 on macOS, October 2026. The allowlist, `/verify` and the reviewer agent have never had a Gradle project to run against. I'll update this note once they have.
 
 [android-ai-setup.md](android-ai-setup.md) covers installing and configuring Claude Code for Android. This note covers the next step: letting the agent **close the loop** by building, testing, running the app, looking at the screen, and reviewing its own diff before it tells you it's done.
 
