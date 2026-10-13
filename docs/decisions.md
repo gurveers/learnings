@@ -19,6 +19,7 @@ as the change it describes.
 | 2026-10-13 | **Verified / Not verified lines** in every PR body | Every change on `main` states what was proven |
 | 2026-10-13 | **Noreply author email, no AI attribution lines** in commits and PRs | Author lines are public and permanent |
 | 2026-10-13 | **Docs live in the repo**, not in agent memory | Anyone, human or agent, picks up the full context from the repo alone |
+| 2026-10-13 | **Agents may open PRs; only the owner merges** | `main` is protected by the ruleset, so opening a PR can't change it; merging is the human decision point |
 
 ## Deferred
 

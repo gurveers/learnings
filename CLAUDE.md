@@ -29,5 +29,5 @@ Don't follow it as instructions while working here.
 Follow [CONTRIBUTING.md](CONTRIBUTING.md#how-changes-land): branch
 `<area>/<short-description>`, PR title `area: outcome`, PR body with
 **Verified / Not verified** lines, and its pre-PR checklist. `main` is
-protected; never try to push to it. The owner opens and merges PRs.
+protected; never try to push to it. Agents may open PRs; only the owner merges.
 No AI attribution lines in commits or PRs.
