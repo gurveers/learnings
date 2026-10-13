@@ -1,0 +1,54 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git status)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git branch *)",
+      "Bash(gh pr *)",
+      "Bash(gh issue *)",
+
+      "Bash(./gradlew *)",
+
+      "Bash(android run *)",
+      "Bash(android screen *)",
+      "Bash(android layout *)",
+      "Bash(android describe *)",
+      "Bash(android info *)",
+      "Bash(android docs *)",
+      "Bash(android install *)",
+      "Bash(android emulator *)",
+      "Bash(android sdk list)",
+
+      "Bash(adb devices)",
+      "Bash(adb logcat *)",
+      "Bash(adb install *)",
+      "Bash(adb shell dumpsys *)",
+      "Bash(adb shell getprop *)"
+    ],
+    "deny": [
+      "Bash(android sdk remove *)",
+      "Bash(adb uninstall *)",
+      "Bash(adb shell rm *)",
+      "Bash(adb shell pm uninstall *)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Edit|Write|Grep|Bash",
+        "hooks": [
+          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/block-secrets.sh\"" }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/ktlint-format.sh\"" }
+        ]
+      }
+    ]
+  }
+}
