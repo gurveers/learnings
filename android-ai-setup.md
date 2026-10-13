@@ -266,6 +266,14 @@ Allow the **safe, frequent** commands so Claude can build, test and inspect with
 
 input=$(cat)
 
+# Fail closed. Without jq this hook can't read the tool call, and an empty
+# path matches nothing, so every call would be allowed, including reads of
+# .env. Block everything instead, with a message that says how to fix it.
+if ! command -v jq >/dev/null 2>&1; then
+  printf '%s\n' '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"deny","permissionDecisionReason":"Secrets guard needs jq, which is not installed, so every tool call is blocked. Install it (brew install jq) and retry."}}'
+  exit 0
+fi
+
 # Secret-shaped basenames.
 SECRET_RE='^\.env($|\.)|\.(pem|p12|jks|keystore)$|^(keystore|local)\.properties$|^google-services\.json$|^credentials\.json$|^service-account[^/]*\.json$'
 # Committed placeholders — safe by construction; blocking them is pure friction.
@@ -312,6 +320,8 @@ echo '{"tool_name":"Read","tool_input":{"file_path":"backend/.env"}}' | bash .cl
 echo '{"tool_name":"Read","tool_input":{"file_path":"core/data/CredentialsRepository.kt"}}' | bash .claude/hooks/block-secrets.sh
 # → (no output = allowed)
 ```
+
+**Second lesson: a guard has to fail closed.** The hook reads each tool call with `jq`. Without `jq` installed, it read an empty path, matched nothing, and allowed every call, including reads of `.env`, with nothing but a `command not found` on stderr. It now blocks everything when `jq` is missing and says how to fix it, and the regression suite runs it without `jq` to prove that.
 
 Note that this guards Claude's *tools*. It is not a sandbox. A determined `bash -c "$(echo …)"` can get around token matching, so keep real signing keys off the dev machine or in a password manager.
 

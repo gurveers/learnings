@@ -11,6 +11,14 @@
 
 input=$(cat)
 
+# Fail closed. Without jq this hook can't read the tool call, and an empty
+# path matches nothing, so every call would be allowed, including reads of
+# .env. Block everything instead, with a message that says how to fix it.
+if ! command -v jq >/dev/null 2>&1; then
+  printf '%s\n' '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"deny","permissionDecisionReason":"Secrets guard needs jq, which is not installed, so every tool call is blocked. Install it (brew install jq) and retry."}}'
+  exit 0
+fi
+
 # Secret-shaped basenames.
 SECRET_RE='^\.env($|\.)|\.(pem|p12|jks|keystore)$|^(keystore|local)\.properties$|^google-services\.json$|^credentials\.json$|^service-account[^/]*\.json$'
 # Committed placeholders — safe by construction; blocking them is pure friction.

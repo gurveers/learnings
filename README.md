@@ -14,11 +14,13 @@ that enforce that.**
 |---|---|---|
 | [Setup guide](android-ai-setup.md) | Configuring Claude Code for Android: toolchain, `CLAUDE.md` layers, permissions, a secrets hook, a ktlint hook, Android CLI and skills | Used day to day |
 | [Agent loop](agent-loop-setup.md) | Letting the agent close the loop: build, test, run, and a reviewer that knows Android | Designed, not yet run end to end |
-| [`templates/`](templates/) | The agent loop's files, laid out to copy into a repo | Secrets hook tested (20/20); the rest untested |
+| [`templates/`](templates/) | The agent loop's files, laid out to copy into a repo | Secrets hook tested (21/21); the rest untested |
 
 ## Start here
 
-Read the [setup guide](android-ai-setup.md) first. To try the agent loop,
+Read the [setup guide](android-ai-setup.md) first. The templates need
+**Claude Code, `jq`, `ktlint` and the Android CLI** installed
+(`brew install jq ktlint`; the guide covers the rest). To try the agent loop,
 copy the templates into your project:
 
 ```bash

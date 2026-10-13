@@ -30,7 +30,7 @@ as the change it describes.
 | 3 | Rename the repo (e.g. `agentic-android`) | #1, since the install command is where the name shows |
 | 4 | Add the `claude-code-plugin` topic | #1 existing |
 | 5 | **Run the agent loop end to end** on a real Android project | A real project with a Gradle build |
-| 6 | Tie each template to an observed failure. So far there's one: the secrets hook blocking `androidx.credentials` | #5 |
+| 6 | Tie each template to an observed failure. So far there are two, both in the secrets hook: it blocked `androidx.credentials` (fixed by matching filenames only), and it allowed everything when `jq` was missing (fixed by failing closed) | #5 |
 | 7 | Lifecycle diagram in README, philosophy section, evals, changelog/releases, attribution | Content from #5 |
 | 8 | Link-check CI. Note: some docs sites return 200 for missing pages, so check titles, not only status codes | More notes, or a reported broken link |
 | 9 | Narrow `Bash(./gradlew *)` in the template allowlist | Seeing which tasks the loop actually needs (#5) |
