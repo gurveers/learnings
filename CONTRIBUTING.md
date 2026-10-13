@@ -110,5 +110,7 @@ before the first commit on a new machine.
 - Relative links resolve.
 - Secrets hook changed → `bash templates/.claude/hooks/block-secrets.test.sh`
   passes.
+- ktlint hook changed → `bash templates/.claude/hooks/ktlint-format.test.sh`
+  passes.
 - `templates/.claude/settings.json` changed → `jq . templates/.claude/settings.json`
   parses.
