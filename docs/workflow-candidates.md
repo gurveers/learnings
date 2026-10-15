@@ -73,6 +73,8 @@ Sources, checked October 2026:
 
 ## 3. Design and architecture
 
+> **Decided 2026-10-15: nothing new.** Feature design is recorded in the spec (stage 2), and `builder-check` finds the open questions. Challenging decisions is already the default from the global `CLAUDE.md`, with `/steelman` when I want it explicitly. Decisions go in `docs/decisions.md` or an ADR. **Revisit** if hard design questions keep coming up: mattpocock `grilling` is the first candidate.
+
 | | Source | Item | What it does |
 |---|---|---|---|
 | ✅ | mine | `/steelman`, `/sysdesign` | Strongest case for the other option; system-design interview |
