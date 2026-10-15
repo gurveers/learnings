@@ -61,6 +61,8 @@ Sources, checked October 2026:
 
 ## 2. Spec and requirements
 
+> **Decided 2026-10-15, to revisit after real use:** mattpocock `to-spec` **as is** (local-file tracker), then my own [`builder-check`](../templates/.claude/skills/builder-check/SKILL.md) step, plus a rule in [`android/CLAUDE.md`](../templates/android/CLAUDE.md) that acceptance criteria say what the screen shows. addyosmani's spec skill repeats project-level setup in every spec. `constraint-driven-development` is project-wide, so it moves to stage 13.
+
 | | Source | Item | What it does |
 |---|---|---|---|
 | ➕ | addyosmani | `spec-driven-development` + `/spec` | Structured spec/PRD before code |
