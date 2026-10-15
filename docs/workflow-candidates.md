@@ -102,6 +102,8 @@ Sources, checked October 2026:
 
 ## 5. Build
 
+> **Decided 2026-10-15 (process):** one slice per session, one PR per slice, merged by me. A small `/slice <issue>` command will run the sequence: issue → branch → plan mode → build → `/verify` → review → PR "Closes #N". It gets written once stages 6–8 are chosen. Autonomous parallel building (`implement-spec`, superpowers SDD) is a later experiment: parallel agents would share one emulator.
+
 **Process**
 
 | | Source | Item | What it does |
