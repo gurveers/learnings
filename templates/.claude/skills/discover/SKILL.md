@@ -9,7 +9,7 @@ words first, your guesses last.
 
 1. **Size it first.** If the request already says everything that matters,
    say so and stop. If it's a small change, ask a few questions and
-   confirm in chat. Only a project gets the full process and a saved doc.
+   confirm in chat. Only a project gets the full process.
 
 2. **Ask open questions, one per message.** Get them describing: "Walk me
    through the last time you needed this." No lists of options. Offer a
@@ -37,9 +37,9 @@ words first, your guesses last.
    ```
 
    Only an explicit "yes" confirms it. "Sounds good" and "whatever you
-   think" don't count: ask what they'd change. For a project, save the
-   confirmed version to `docs/intent/<topic>.md`. Then stop and hand back
-   to the user. Don't start the spec or any code.
+   think" don't count: ask what they'd change. Then stop and hand back to
+   the user. Don't start the spec or any code. For a project, the next step
+   is `/to-spec`, which turns this conversation into the spec issue.
 
 ---
 Adapted from `interview-me` ([addyosmani/agent-skills](https://github.com/addyosmani/agent-skills), MIT)
