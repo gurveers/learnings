@@ -21,6 +21,7 @@ as the change it describes.
 | 2026-10-13 | **Docs live in the repo**, not in agent memory | Anyone, human or agent, picks up the full context from the repo alone |
 | 2026-10-13 | **Agents may open PRs; only the owner merges** | `main` is protected by the ruleset, so opening a PR can't change it; merging is the human decision point |
 | 2026-10-15 | **Workflow v1 is assembled, not adopted.** No end-to-end framework (superpowers, addyosmani) as a whole. Each stage: read the contenders' actual `SKILL.md`, compare, then pick one, adapt one, or write my own. Candidates live in [workflow-candidates.md](workflow-candidates.md) | None of the eight repos is Android-aware (0 mentions of Android/Gradle/Kotlin in superpowers or mattpocock); the Android verification layer is mine either way. And I have to understand every step, which a framework that drives itself works against |
+| 2026-10-15 | **Stage 1 (discovery): my own `discover` skill**, six rules, called only by hand. Open questions one at a time, guesses only when stuck, facts looked up rather than asked, buzzwords challenged, stop when the next three answers are predictable, then restate with Out of scope and an explicit yes. Doc saved only for projects | Accuracy over speed: `interview-me` attaches a guess to every question, which is fast but leads the user; `brainstorming` asks better questions but triggers on everything and is tied to superpowers. Kept short on purpose |
 
 ## Deferred
 

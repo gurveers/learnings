@@ -46,6 +46,8 @@ Sources, checked October 2026:
 
 ## 1. Idea and discovery
 
+> **Decided 2026-10-15: my own [`discover`](../templates/.claude/skills/discover/SKILL.md) skill**, built from `interview-me` and `brainstorming`. Accuracy over speed: open questions before guesses. `/probe` isn't part of this stage (it tests understanding, not intent). Not yet used on a real project.
+
 | | Source | Item | What it does |
 |---|---|---|---|
 | ✅ | mine | `/probe` | Quizzes me before I build, one question at a time |
