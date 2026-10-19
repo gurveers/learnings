@@ -159,6 +159,8 @@ Sources, checked October 2026:
 
 ## 8. Review
 
+> **Decided 2026-10-19:** `android-reviewer` (conventions and Android hazards) unchanged, plus mattpocock `code-review` as is (Standards and Spec, two parallel subagents). `/slice` runs them after `/verify`. Watch for: duplicate findings between the two Standards checks, and the stage 6 test rule going unchecked. Candidate fixes if they bite: drop mattpocock's Standards axis, or add test quality to `android-reviewer`.
+
 | | Source | Item | What it does |
 |---|---|---|---|
 | ✅ | mine | `android-reviewer` agent | Android runtime hazards, measured against `android/CLAUDE.md` |
