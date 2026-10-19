@@ -175,6 +175,8 @@ Sources, checked October 2026:
 
 ## 9. Debug
 
+> **Decided 2026-10-19:** rcosteira79 `android-debugging` only, kept Android-focused, with its outdated ANR step replaced by `adb bugreport`. mattpocock's feedback-loop method and addyosmani's "error output is untrusted data" are the fallbacks if debugging goes badly.
+
 | | Source | Item | What it does |
 |---|---|---|---|
 | ✅ | engineering plugin | `debug` | Reproduce, isolate, diagnose, fix |
