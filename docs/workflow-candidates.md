@@ -118,6 +118,8 @@ Sources, checked October 2026:
 
 **Android knowledge**
 
+> **Decided 2026-10-19 (knowledge):** keep Google's `android/skills` and `kotlin-lsp`; copy in rcosteira79's `kotlin-coroutines`, `kotlin-flows`, `android-source-search` and `android-gradle-logic` (with credit and the upstream commit noted). Library skills only when the app uses the library. Skip `compose`, `koin`, `android-dev`, `modularization`, `android-data-layer`: they carry conventions that compete with `android/CLAUDE.md`. The dispatcher convention was decided first (main-safe callee), so `kotlin-coroutines` agrees with it instead of deciding it.
+
 | | Source | Item | What it does |
 |---|---|---|---|
 | ✅ | android/skills | `android-cli`, `edge-to-edge`, `styles`, `navigation-event`, `camerax`, `media3-cast-integration`, `restore-credentials`, `verified-email`, `appfunctions`, `ml-kit-genai-prompt-api` | APIs where models perform poorly, written by Google |

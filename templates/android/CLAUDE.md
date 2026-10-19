@@ -30,11 +30,16 @@ Applies to all code under `android/`. Complements the root `CLAUDE.md` (product 
 - Pass data **through the route**, not via shared/global state. Shared state between screens leaks across the back stack and makes deep links and process death restore incorrectly.
 - Route definitions for a feature live with that feature; the app-level graph composes them (see Module structure).
 
+## Coroutines and dispatchers
+- **Main-safe by default.** The function that does blocking work owns the switch: `withContext(io)` inside it. Callers never switch dispatchers, so a new caller can't get it wrong.
+- **Inject dispatchers**, don't hard-code `Dispatchers.IO`. Tests pass a test dispatcher.
+- **No stored scopes in repositories or use cases.** Expose `suspend` functions or `Flow`s; the caller's scope (usually `viewModelScope`) owns the work and its cancellation.
+
 ## Specs
 - Acceptance criteria for any UI change say **what the screen should show**: content, state, and the empty, loading and error cases. `/verify` takes a screenshot; this is what it checks against.
 
 ## Not yet decided — write an ADR when you hit these
-Significant decisions get an ADR first. Open ones: error handling across layers (`Result`/sealed vs exceptions), coroutine scope & dispatcher conventions, and the testing stack (MockK vs Mockito, Turbine, Robolectric vs instrumented). Decide at the point of need, then record the outcome here.
+Significant decisions get an ADR first. Open ones: error handling across layers (`Result`/sealed vs exceptions; whatever is chosen, never swallow `CancellationException`), and the testing stack (MockK vs Mockito, Turbine, Robolectric vs instrumented). Decide at the point of need, then record the outcome here.
 
 ## Revisit
 Two calls above were close, and were flagged as such when adopted:
