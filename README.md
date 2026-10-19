@@ -14,7 +14,7 @@ that enforce that.**
 |---|---|---|
 | [Setup guide](android-ai-setup.md) | Configuring Claude Code for Android: toolchain, `CLAUDE.md` layers, permissions, a secrets hook, a ktlint hook, Android CLI and skills | Used day to day |
 | [Agent loop](agent-loop-setup.md) | Letting the agent close the loop: build, test, run, and a reviewer that knows Android | Designed, not yet run end to end |
-| [`templates/`](templates/) | The agent loop's files, laid out to copy into a repo | Both hooks tested (secrets 21/21, ktlint 5/5); the rest untested |
+| [`templates/`](templates/) | The agent loop's files, laid out to copy into a repo | Both hooks tested (secrets 21/21, ktlint 5/5); git deny rules tested (21/22; the miss is `git -C`); the rest untested |
 
 ## Start here
 

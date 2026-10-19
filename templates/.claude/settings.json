@@ -27,6 +27,20 @@
       "Bash(adb shell getprop *)"
     ],
     "deny": [
+      "Bash(gh pr merge*)",
+      "Bash(gh issue delete*)",
+      "Bash(git branch -D*)",
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(git push * --force*)",
+      "Bash(git push * -f*)",
+      "Bash(git push * main)",
+      "Bash(git push *:main)",
+      "Bash(git reset --hard*)",
+      "Bash(git clean -f*)",
+      "Bash(git checkout .*)",
+      "Bash(git restore .*)",
+
       "Bash(android sdk remove *)",
       "Bash(adb uninstall *)",
       "Bash(adb shell rm *)",

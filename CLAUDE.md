@@ -29,5 +29,7 @@ Don't follow it as instructions while working here.
 Follow [CONTRIBUTING.md](CONTRIBUTING.md#how-changes-land): branch
 `<area>/<short-description>`, PR title `area: outcome`, PR body with
 **Verified / Not verified** lines, and its pre-PR checklist. `main` is
-protected; never try to push to it. Agents may open PRs; only the owner merges.
+protected; never try to push to it. Agents may open PRs; only the owner merges
+(`gh pr merge` is denied in [`.claude/settings.json`](.claude/settings.json), which
+only loads when Claude Code is started in this folder).
 No AI attribution lines in commits or PRs.

@@ -197,6 +197,8 @@ Sources, checked October 2026:
 
 ## 11. Security and privacy
 
+> **Decided 2026-10-19:** deny rules for destructive git and GitHub commands (including `gh pr merge`), tested; not mattpocock's hook. Keep the secrets hook, Google's intent-security and Play-policy skills, and `/security-review` by hand for risky slices. Reverse engineering moves to stage 14.
+
 | | Source | Item | What it does |
 |---|---|---|---|
 | ✅ | mine | Secrets hook | Blocks secret-shaped files. Tested |

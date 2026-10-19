@@ -34,7 +34,13 @@ you review a change that has already been built, run and looked at
 
 The loop only works if Claude can run it without asking permission at every step. So the allowlist covers Gradle, `android run/screen/layout/install/emulator` and the read-only `adb` commands.
 
-The **deny list** names the destructive device commands (`adb uninstall`, `adb shell rm`, `adb shell pm uninstall`, `android sdk remove`). Deny rules win over allow rules, so they stay blocked even if a broader allow rule is added later.
+The **deny list** names the destructive commands. Deny rules win over allow rules, so they stay blocked even if a broader allow rule is added later, and unlike a hook they don't depend on `jq`.
+- **Device:** `adb uninstall`, `adb shell rm`, `adb shell pm uninstall`, `android sdk remove`.
+- **Git and GitHub:** `gh pr merge`, `gh issue delete`, `git branch -D`, force pushes, pushes to `main`, `git reset --hard`, `git clean -f`, `git checkout .`, `git restore .`.
+
+`gh pr merge` matters most. A ruleset that requires a PR with 0 approvals doesn't stop an agent using your `gh` login from merging its own PR, because the merge goes through a PR. "Only I merge" was an instruction until this rule made it a control.
+
+Tested with Claude Code 2.1.299 in a throwaway repo, by asking a nested `claude -p` to run 22 commands across two runs, with `git *` and `gh *` allowed: every dangerous command but one was denied, and feature-branch pushes, a branch called `main-fix`, and a commit message containing "reset --hard" all ran. **One known gap:** prefix rules don't see past `git -C <dir> push -f`. (The first draft also missed `git push origin HEAD:main`; `git push *:main` fixed it.) The GitHub ruleset stays the backstop for `main`. A project's allow rules are ignored until its folder is trusted; deny rules load either way.
 
 **Open question:** `Bash(./gradlew *)` is broad. It allows any task, including `publish` or a custom task that deletes files. The narrower option is to list the tasks one by one (`test*`, `lint*`, `assembleDebug*`). I haven't yet seen which tasks the loop actually needs, so this is a guess.
 
