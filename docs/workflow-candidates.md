@@ -1,10 +1,11 @@
 # Workflow v1: candidates
 
-**Status: draft for review.** Every skill, command and agent from eight public
-skill repos, plus what's already on my machine, sorted by development stage.
-Nothing here is chosen yet. We go through it stage by stage, pick **one tool
-per job**, and the picks become `workflow.md`, workflow v1. That workflow is
-then frozen and tried out on a new Android project.
+**Status: stages 1–9 and 11–13 decided** (see the notes under each stage, and
+the result in [workflow.md](../workflow.md)); stages 0, 10 and 14–16 wait for
+real code. Every skill, command and agent from eight public skill repos, plus
+what's already on my machine, sorted by development stage. Each stage picks
+**one tool per job**. Workflow v1 is then frozen and tried out on a new
+Android project.
 
 Sources, checked October 2026:
 [android/skills](https://github.com/android/skills) ·
