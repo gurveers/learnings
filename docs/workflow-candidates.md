@@ -149,6 +149,8 @@ Sources, checked October 2026:
 
 ## 7. Verify (before saying "done")
 
+> **Decided 2026-10-19:** keep my `/verify`, and add an acceptance-criteria check: given an issue, it reports each criterion with its evidence as met, not met or unverifiable. Unverifiable is disclosed, not blocking. Screenshot tests are not in `/verify` for now (deferred to CI).
+
 | | Source | Item | What it does |
 |---|---|---|---|
 | ✅ | mine | `/verify` | Lint, test, build, **run the app, screenshot, read it**. Not yet tried on a real project |
