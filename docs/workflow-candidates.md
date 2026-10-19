@@ -62,7 +62,7 @@ Sources, checked October 2026:
 
 ## 2. Spec and requirements
 
-> **Decided 2026-10-15, to revisit after real use:** mattpocock `to-spec` **as is**, with GitHub Issues as the tracker (the spec is an issue), then my own [`builder-check`](../templates/.claude/skills/builder-check/SKILL.md) step, plus a rule in [`android/CLAUDE.md`](../templates/android/CLAUDE.md) that acceptance criteria say what the screen shows. addyosmani's spec skill repeats project-level setup in every spec. `constraint-driven-development` is project-wide, so it moves to stage 13.
+> **Decided 2026-10-15, to revisit after real use:** mattpocock `to-spec` **as is**, with GitHub Issues as the tracker (the spec is an issue), then my own [`builder-check`](../templates/.claude/skills/builder-check/SKILL.md) step, plus a rule in [`android/CLAUDE.md`](../templates/android/CLAUDE.md) that acceptance criteria say what the screen shows. addyosmani's spec skill repeats project-level setup in every spec. `constraint-driven-development` is project-wide, so it moves to stage 13. **Updated 2026-10-20:** `builder-check` now runs on each ticket after `to-tickets` (stage 4), since the ticket is what the builder reads.
 
 | | Source | Item | What it does |
 |---|---|---|---|

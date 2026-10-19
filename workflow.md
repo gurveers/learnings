@@ -11,38 +11,60 @@ Android-aware end to end, and adopting one whole would mean running a
 process I don't fully understand. So each stage got **one tool per job**:
 an existing skill taken as is, an existing one adapted, or my own.
 
-## One feature, start to finish
+## Two phases, one handoff
 
 ```
-idea
- │ /discover ─────────────► what, who, success, out of scope (confirmed in chat)
- │ /to-spec ──────────────► spec issue, acceptance criteria say what the screen shows
- │ builder-check ─────────► a fresh agent asks what it couldn't build without me
- │ /to-tickets ───────────► sub-issues: thin vertical slices, ready-for-agent
- ▼
-for each slice: one session, one branch, one PR
- │ plan mode ─────────────► plan against the current code
- │ build, test first ─────► tests come from the acceptance criteria
- │ /verify <issue> ───────► lint, tests, build, run the app, screenshot,
- │                          each criterion: met / not met / unverifiable
- │ two reviewers ─────────► Android hazards + conventions; spec and scope creep
- │ PR "Closes #N" ────────► Verified, Not verified, Merge danger
- │ CI ────────────────────► the same checks on a clean machine, plus the bar check
- ▼
-me: read it, merge it (the agent can't)
+PHASE 1: SHAPE    you + agent, one session per feature
+  idea
+   │ /discover ──────► what, who, success, out of scope (confirmed in chat)
+   │ /to-spec ───────► spec issue, from this same conversation
+   │ /to-tickets ────► sub-issues: thin vertical slices with blockers and
+   │                   acceptance criteria that say what the screen shows
+   │ builder-check ──► a fresh agent per ticket asks what it couldn't
+   ▼                   build without you
+  tickets labelled ready-for-agent
+           │
+     ┌─────┼──────────────┐
+     ▼     ▼              ▼
+PHASE 2: BUILD    agent alone, one session per ticket
+  /slice #12      /slice #13 (after #12 merges)   ...
+   │ plan mode ──────► plan against the current code
+   │ build ──────────► tests first, from the ticket's acceptance criteria
+   │ /verify #12 ────► lint, tests, build, run the app, screenshot,
+   │                   each criterion: met / not met / unverifiable
+   │ two reviewers ──► Android hazards + conventions; spec and scope creep
+   │ PR "Closes #12" ► Verified, Not verified, Merge danger
+   │ CI ─────────────► same checks on a clean machine, plus the bar check
+   ▼
+  you: read it, merge it (the agent can't). Merging unblocks the next ticket.
 ```
 
-The per-slice steps will be run by one command, `/slice <issue>`. It isn't
-written yet.
+**The ticket is the contract between the phases.** A Phase 2 session
+starts with no memory and reads one issue (and the spec it links to).
+Anything it needs that the ticket doesn't say is a Phase 1 bug, which is
+why `builder-check` tests each ticket, not the spec. Inside Phase 1 the
+handoffs are looser: `/to-spec` writes up the conversation, so `/discover`
+and `/to-spec` have to run in the same session.
+
+Tickets are built **one at a time**, in the order their blockers allow:
+parallel agents on Android would share one emulator. Phase 2 steps will be
+run by one command, `/slice <issue>`, which isn't written yet.
+
+**Where you step in:** confirming the discovery summary, confirming the
+test seams `/to-spec` proposes, approving the ticket breakdown, answering
+the questions `builder-check` says only you can answer, and reviewing and
+merging each PR. A Phase 2 session comes back to you only if a ticket
+doesn't answer something, CI stays red after two fixes, or debugging fails
+three times.
 
 ## Stage by stage
 
 | Stage | What runs | From |
 |---|---|---|
 | 1. Discover | [`discover`](templates/.claude/skills/discover/SKILL.md): open questions one at a time, facts looked up rather than asked, stop when the answers become predictable | mine |
-| 2. Spec | `to-spec` with GitHub Issues, then [`builder-check`](templates/.claude/skills/builder-check/SKILL.md) | mattpocock; mine |
+| 2. Spec | `to-spec` with GitHub Issues, in the same session as discovery | mattpocock |
 | 3. Design | Plan mode for hard questions; outcomes in the decision log. No extra skill | — |
-| 4. Plan | `to-tickets` into sub-issues, then plan mode for each slice | mattpocock |
+| 4. Plan | `to-tickets` into sub-issues with acceptance criteria, then [`builder-check`](templates/.claude/skills/builder-check/SKILL.md) on each ticket; plan mode for each slice in Phase 2 | mattpocock; mine |
 | 5. Build | One slice per session and PR. Knowledge: Google's `android/skills`, `kotlin-lsp`, and `kotlin-coroutines`, `kotlin-flows`, `android-source-search`, `android-gradle-logic` | Google; rcosteira79 |
 | 6. Test | `android-testing` (test first, plus the Android traps). Stack: JUnit4, Compose testing, Robolectric, Compose Preview Screenshot Testing, Turbine, fakes before mocks. `testing-setup` once | rcosteira79; Google |
 | 7. Verify | [`/verify <issue>`](templates/.claude/commands/verify.md) | mine |
@@ -102,9 +124,10 @@ Not done yet; this list is the plan, and it will be corrected when it runs.
 1. Copy the templates:
    `cp -R templates/.claude templates/.githooks templates/.github templates/android <your-repo>/`
 2. Turn the push guard on in each clone: `git config core.hooksPath .githooks`.
-3. Install mattpocock's `to-spec`, `to-tickets` and `code-review`, with
-   GitHub Issues as the tracker and the labels `ready-for-agent` and
-   `ready-for-human`.
+3. Install mattpocock's `to-spec`, `to-tickets` and `code-review`, then run
+   `/setup-matt-pocock-skills` once: GitHub Issues as the tracker, and the
+   labels `ready-for-agent` and `ready-for-human`. His skills stop and ask
+   for it otherwise.
 4. Copy rcosteira79's `kotlin-coroutines`, `kotlin-flows`, `android-testing`,
    `android-debugging`, `android-source-search` and `android-gradle-logic`,
    with credit and the upstream commit noted.
