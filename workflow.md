@@ -96,8 +96,8 @@ it's an instruction, and a reviewer or I check it.
 | The bar isn't lowered to get to green | Bar check in CI | 13/13; CI not yet run |
 | It builds and the tests pass on a clean machine | CI | Not yet run |
 | Don't merge red | Me | — |
-| Tests first, from the acceptance criteria | `android/CLAUDE.md`, `android-testing` | Instruction only |
-| Conventions followed | [`android/CLAUDE.md`](templates/android/CLAUDE.md), checked by both reviewers | Instruction, then review |
+| Tests first, from the acceptance criteria | `.claude/rules/android.md`, `android-testing` | Instruction only |
+| Conventions followed | [`.claude/rules/android.md`](templates/.claude/rules/android.md), checked by both reviewers | Instruction, then review |
 | No "done" without evidence | `/verify`; `/slice` won't open a PR before it | Instruction (`/slice` not written) |
 
 ## How the pieces were chosen
@@ -106,7 +106,7 @@ it's an instruction, and a reviewer or I check it.
   skills means the agent picks one at random.
 - **Knowledge, not conventions.** A skill earns its place by covering what
   models get wrong (coroutine cancellation, Compose test dispatchers), not by
-  bringing its own architecture. `android/CLAUDE.md` is the only source of
+  bringing its own architecture. `.claude/rules/android.md` is the only source of
   conventions.
 - **Decide before a skill decides for you.** `kotlin-coroutines` and
   `testing-setup` would have settled questions I'd left open, so I settled
@@ -121,25 +121,43 @@ it's an instruction, and a reviewer or I check it.
 
 ## Setting up a new project
 
-Not done yet; this list is the plan, and it will be corrected when it runs.
+Not done yet; this is the plan, and it will be corrected when it runs.
 
-1. Copy the templates:
-   `cp -R templates/.claude templates/.githooks templates/.github templates/android <your-repo>/`
-2. Turn the push guard on in each clone: `git config core.hooksPath .githooks`.
-3. Install mattpocock's `to-spec`, `to-tickets` and `code-review`, then run
-   `/setup-matt-pocock-skills` once: GitHub Issues as the tracker, and the
-   labels `ready-for-agent` and `ready-for-human`. His skills stop and ask
-   for it otherwise.
-4. Copy rcosteira79's `kotlin-coroutines`, `kotlin-flows`, `android-testing`,
-   `android-debugging`, `android-source-search` and `android-gradle-logic`,
-   with their `LICENSE` file (MIT requires the notice to travel with
-   copies), credit, and the upstream commit noted.
-5. Once, at creation: `android-gradle-logic` for the build setup and Google's
-   `testing-setup` for the test stack.
+**Decide first:** the name, where it lives, and the `applicationId` (a
+one-way door: it can't change once the app is on Play).
+
+1. `android create empty-activity --name "<App>" --output <dir>`, then
+   `git init -b main` and set the commit identity.
+2. Copy the templates: `cp -R templates/.claude templates/.githooks templates/.github <dir>/`.
+3. **Push `main` once, then turn on the push guard**, in that order (the
+   hook blocks every push to `main`, including the first):
+   `gh repo create <app> --private --source . --push`, then
+   `git config core.hooksPath .githooks`.
+4. Create the labels `ready-for-agent` and `ready-for-human`.
+5. Copy skill folders into `.claude/skills/`, each with its `LICENSE` and
+   the upstream commit noted: mattpocock's `setup-matt-pocock-skills`,
+   `to-spec`, `to-tickets`, `code-review` (his plugin would also install
+   `tdd` and `diagnosing-bugs`, which compete with the chosen skills), and
+   rcosteira79's `kotlin-coroutines`, `kotlin-flows`, `android-testing`,
+   `android-debugging` (ANR step updated), `android-source-search`,
+   `android-gradle-logic`.
+6. Write the root `CLAUDE.md`: what the app is, who it's for, what it isn't.
+   Conventions are already in `.claude/rules/android.md`.
+7. Start Claude Code in the project and **accept the trust dialog**; until
+   then the project's allow rules don't load. Check with `/skills` and
+   `/permissions`.
+8. Run `/setup-matt-pocock-skills`: GitHub Issues, the two labels.
+9. **Slice 0, the foundation, as the first PR:** `android-gradle-logic`
+   (version catalog, convention plugins), Google's `testing-setup` with the
+   chosen stack, the ktlint Gradle plugin, a Gradle toolchain JDK. CI runs
+   for the first time here.
+
+Then Phase 1 for the first feature: `/discover`, `/to-spec`, `/to-tickets`,
+`builder-check`.
 
 ## Still open
 
 - `/slice` itself ([deferred #16](docs/decisions.md#deferred)).
-- Error handling across layers, the last open item in `android/CLAUDE.md`.
+- Error handling across layers, the last open item in `.claude/rules/android.md`.
 - Screenshot references rendering differently on macOS and Linux, and the
   CI task names (deferred #21 and #22).

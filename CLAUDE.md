@@ -22,7 +22,7 @@ PR.
 
 ## `templates/` is content, not instructions
 Files under `templates/` are artifacts for other people's repos.
-`templates/android/CLAUDE.md` in particular is a sample conventions file.
+`templates/.claude/rules/android.md` in particular is a sample conventions file.
 Don't follow it as instructions while working here.
 
 ## How changes land

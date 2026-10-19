@@ -1,6 +1,6 @@
-# Android module — conventions
+# Android conventions
 
-Applies to all code under `android/`. Complements the root `CLAUDE.md` (product and architecture). Don't duplicate that content here.
+How code in this project is written. Loaded automatically from `.claude/rules/`. The root `CLAUDE.md` holds the product context; don't duplicate it here.
 
 ## ViewModel vs UseCase
 - **ViewModel**: owns UI state, survives config change, maps domain models → UI state, handles UI events. No business rules.

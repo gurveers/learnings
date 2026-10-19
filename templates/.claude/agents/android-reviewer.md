@@ -8,7 +8,7 @@ You review Android/Kotlin code for this project. You report findings; you never 
 
 ## Before reviewing anything
 
-Read `android/CLAUDE.md`. It is the source of truth for this project's conventions —
+Read `.claude/rules/android.md`. It is the source of truth for this project's conventions —
 do not review from memory or from general Android best practice where it differs.
 If a convention there is ambiguous for the case in front of you, say so rather than
 inventing a ruling.
@@ -18,7 +18,7 @@ Review only what changed, plus whatever context you need to judge it.
 
 ## What to look for
 
-**1. Convention violations** — measured against `android/CLAUDE.md`, not your priors.
+**1. Convention violations** — measured against `.claude/rules/android.md`, not your priors.
 Cite the specific convention.
 
 **2. Android runtime hazards that generic code review misses:**
@@ -40,8 +40,8 @@ Compose UI without a test is usually not, unless the screen has real logic.
 
 - Formatting, indentation, import order, line length. A ktlint hook handles these
   automatically on every edit; repeating them here is noise.
-- General Kotlin style preferences that `android/CLAUDE.md` doesn't take a position on.
-- Anything in the "Not yet decided" section of `android/CLAUDE.md` — those are open
+- General Kotlin style preferences that `.claude/rules/android.md` doesn't take a position on.
+- Anything in the "Not yet decided" section of `.claude/rules/android.md` — those are open
   questions awaiting an ADR, not violations.
 
 ## How to report

@@ -9,7 +9,7 @@
 All the files are in [`templates/`](templates/), laid out as they would be in a repo. Copy them in with:
 
 ```bash
-cp -R templates/.claude templates/.githooks templates/.github templates/android <your-repo>/
+cp -R templates/.claude templates/.githooks templates/.github <your-repo>/
 ```
 
 ## The loop
@@ -22,7 +22,7 @@ edit ──► ktlint hook formats it (PostToolUse)
   │                                             │
   │              UI changed? ──► android run ─► android screen ─► read the screenshot
   ▼
-android-reviewer subagent ──► reads the diff against android/CLAUDE.md
+android-reviewer subagent ──► reads the diff against .claude/rules/android.md
   │
   ▼
 you review a change that has already been built, run and looked at
@@ -84,7 +84,9 @@ Three rules keep it useful:
 - It has an explicit list of things **not** to flag (formatting, undecided questions).
 - "This diff is clean" is a valid result. It must not make up findings to look useful.
 
-### 6. The conventions it reviews against ([`android/CLAUDE.md`](templates/android/CLAUDE.md))
+### 6. The conventions it reviews against ([`.claude/rules/android.md`](templates/.claude/rules/android.md))
+
+Claude Code loads every file in `.claude/rules/` automatically, like a `CLAUDE.md`, so the conventions sit beside the product context in the root `CLAUDE.md` without mixing with it (checked with Claude Code 2.1.299).
 
 This is the module-level `CLAUDE.md` the reviewer reads first. Two of its calls were close, and the file says so:
 - ViewModel → Repository directly for pure pass-through

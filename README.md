@@ -25,7 +25,7 @@ Read the [setup guide](android-ai-setup.md) first. The templates need
 copy the templates into your project:
 
 ```bash
-cp -R templates/.claude templates/.githooks templates/.github templates/android <your-repo>/
+cp -R templates/.claude templates/.githooks templates/.github <your-repo>/
 ```
 
 Read the files before you copy them. `settings.json` lets the agent run

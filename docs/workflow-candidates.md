@@ -25,7 +25,7 @@ Sources, checked October 2026:
    means the agent picks one at random each time.
 2. **Process and gaps, not conventions.** Add skills for *how to work*
    (debug, plan, test) and for *what the model gets wrong* (APIs). Don't add
-   skills that bring their own architecture opinions. `android/CLAUDE.md` is
+   skills that bring their own architecture opinions. `.claude/rules/android.md` is
    the only source of conventions.
 3. **How each one installs limits what you can pick.** superpowers installs
    as a whole plugin. addyosmani and mattpocock can be installed one skill at
@@ -39,7 +39,7 @@ Sources, checked October 2026:
 | | Source | Item | What it does |
 |---|---|---|---|
 | ✅ | mine | Global `CLAUDE.md`, plan mode by default | Role, teaching style, git rules |
-| ✅ | mine | Project `CLAUDE.md` layers | Product context + `android/CLAUDE.md` conventions |
+| ✅ | mine | Project `CLAUDE.md` layers | Product context + `.claude/rules/android.md` conventions |
 | ➕ | addyosmani | `context-engineering` | Setting up rules files and context; what to do when output quality drops |
 | ⚠️ | superpowers | `using-superpowers` | Forces a skill check before **any** reply. Conflicts with plan mode and Socratic flow |
 | ⚠️ | addyosmani | `using-agent-skills` | Picks which skill applies (router) |
@@ -62,7 +62,7 @@ Sources, checked October 2026:
 
 ## 2. Spec and requirements
 
-> **Decided 2026-10-15, to revisit after real use:** mattpocock `to-spec` **as is**, with GitHub Issues as the tracker (the spec is an issue), then my own [`builder-check`](../templates/.claude/skills/builder-check/SKILL.md) step, plus a rule in [`android/CLAUDE.md`](../templates/android/CLAUDE.md) that acceptance criteria say what the screen shows. addyosmani's spec skill repeats project-level setup in every spec. `constraint-driven-development` is project-wide, so it moves to stage 13. **Updated 2026-10-20:** `builder-check` now runs on each ticket after `to-tickets` (stage 4), since the ticket is what the builder reads.
+> **Decided 2026-10-15, to revisit after real use:** mattpocock `to-spec` **as is**, with GitHub Issues as the tracker (the spec is an issue), then my own [`builder-check`](../templates/.claude/skills/builder-check/SKILL.md) step, plus a rule in [`.claude/rules/android.md`](../templates/.claude/rules/android.md) that acceptance criteria say what the screen shows. addyosmani's spec skill repeats project-level setup in every spec. `constraint-driven-development` is project-wide, so it moves to stage 13. **Updated 2026-10-20:** `builder-check` now runs on each ticket after `to-tickets` (stage 4), since the ticket is what the builder reads.
 
 | | Source | Item | What it does |
 |---|---|---|---|
@@ -85,7 +85,7 @@ Sources, checked October 2026:
 | ➕ | mattpocock | `improve-codebase-architecture` | Scans for improvements, HTML report, then grills one |
 | ➕ | addyosmani | `api-and-interface-design` | Stable APIs and module boundaries |
 | ➕ | addyosmani | `doubt-driven-development` | Every non-trivial decision gets an adversarial review in a fresh context |
-| ⚠️ | rcosteira79 | `android-dev`, `modularization`, `android-data-layer` | Android architecture defaults. **Competing conventions** with `android/CLAUDE.md` |
+| ⚠️ | rcosteira79 | `android-dev`, `modularization`, `android-data-layer` | Android architecture defaults. **Competing conventions** with `.claude/rules/android.md` |
 | ✅ | android/skills | `adaptive`, `navigation-3` | Window sizes, multi-pane layouts, Navigation 3 |
 
 ## 4. Plan and break down
@@ -119,7 +119,7 @@ Sources, checked October 2026:
 
 **Android knowledge**
 
-> **Decided 2026-10-19 (knowledge):** keep Google's `android/skills` and `kotlin-lsp`; copy in rcosteira79's `kotlin-coroutines`, `kotlin-flows`, `android-source-search` and `android-gradle-logic` (with credit and the upstream commit noted). Library skills only when the app uses the library. Skip `compose`, `koin`, `android-dev`, `modularization`, `android-data-layer`: they carry conventions that compete with `android/CLAUDE.md`. The dispatcher convention was decided first (main-safe callee), so `kotlin-coroutines` agrees with it instead of deciding it.
+> **Decided 2026-10-19 (knowledge):** keep Google's `android/skills` and `kotlin-lsp`; copy in rcosteira79's `kotlin-coroutines`, `kotlin-flows`, `android-source-search` and `android-gradle-logic` (with credit and the upstream commit noted). Library skills only when the app uses the library. Skip `compose`, `koin`, `android-dev`, `modularization`, `android-data-layer`: they carry conventions that compete with `.claude/rules/android.md`. The dispatcher convention was decided first (main-safe callee), so `kotlin-coroutines` agrees with it instead of deciding it.
 
 | | Source | Item | What it does |
 |---|---|---|---|
@@ -164,7 +164,7 @@ Sources, checked October 2026:
 
 | | Source | Item | What it does |
 |---|---|---|---|
-| ✅ | mine | `android-reviewer` agent | Android runtime hazards, measured against `android/CLAUDE.md` |
+| ✅ | mine | `android-reviewer` agent | Android runtime hazards, measured against `.claude/rules/android.md` |
 | ✅ | built in | `/code-review`, `/simplify` | Correctness review; clean-ups |
 | ✅ | engineering plugin | `code-review` | Security, performance, correctness |
 | ⚠️ | addyosmani | `code-review-and-quality` + `/review` + `code-reviewer` agent | Review across five areas |
