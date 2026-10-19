@@ -92,6 +92,12 @@ This is the module-level `CLAUDE.md` the reviewer reads first. Two of its calls 
 
 Its **"Not yet decided"** section matters as much as the rules. It stops the agent from treating an open question as settled.
 
+### 7. CI as evidence the agent didn't write ([`ci.yml`](templates/.github/workflows/ci.yml), [`check-bar.sh`](templates/.github/scripts/check-bar.sh) and its [test](templates/.github/scripts/check-bar.test.sh))
+
+For one developer, CI isn't about coordinating people. It gives a clean machine, runs what doesn't get run locally (full lint, screenshot tests), and, with an agent, it's the one piece of evidence the agent can't write itself. One Linux job on pull requests runs the `/verify` checks plus screenshot tests. On a private GitHub Free repo it can't block a merge, so the rule is: don't merge red.
+
+An agent pushed to get to green can lower the bar instead of fixing the code, and running its tests won't notice. `check-bar.sh` runs as a second job and fails if a PR adds `@Suppress`, `@Ignore` or `ktlint-disable`, deletes test files, removes assertions, changes the lint baseline, lint or ktlint config, or CI, or re-records or deletes screenshot references. New reference images are allowed (they're new tests). Each item is for a human to judge at merge, not automatically wrong. Its test passes 13/13, and against a script that never flags anything, all 10 detection cases fail. **The workflow itself hasn't run yet**: it needs a project with a Gradle build.
+
 ## What I expect to learn when it runs
 
 - Whether `android screen` plus a model reading the screenshot catches real UI bugs, or just describes the screen.

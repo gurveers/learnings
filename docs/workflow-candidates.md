@@ -222,6 +222,8 @@ Sources, checked October 2026:
 
 ## 13. CI/CD
 
+> **Decided 2026-10-19:** one lean, advisory workflow on PRs (the `/verify` checks plus screenshot tests) and a tested bar check that fails when a PR makes checks easier to pass. `/slice` waits for CI and fixes failures. No emulator tests, Claude-in-CI or deploys.
+
 | | Source | Item | What it does |
 |---|---|---|---|
 | ❌ | — | **Gap** | Nothing yet: "verified" means "on my machine" |
