@@ -59,7 +59,7 @@ setup-guide: correct the ktlint install step for Linux
 
 - **Area** is where to look. One of:
   `readme` · `setup-guide` · `agent-loop` · `secrets-hook` · `ktlint-hook` ·
-  `verify` · `reviewer` · `conventions` · `repo`
+  `verify` · `reviewer` · `conventions` · `workflow` · `repo`
   (`repo` covers licence, settings, contributing and anything repo-wide.
   Add a new area when a new note or template arrives.)
 - **Outcome** is what's now true, in the imperative, lowercase after the

@@ -28,7 +28,7 @@ PHASE 1: SHAPE    you + agent, one session per feature
      ▼     ▼              ▼
 PHASE 2: BUILD    agent alone, one session per ticket
   /slice #12      /slice #13 (after #12 merges)   ...
-   │ plan mode ──────► plan against the current code
+   │ plan mode ──────► plan against the current code; you approve it
    │ build ──────────► tests first, from the ticket's acceptance criteria
    │ /verify #12 ────► lint, tests, build, run the app, screenshot,
    │                   each criterion: met / not met / unverifiable
@@ -52,8 +52,10 @@ run by one command, `/slice <issue>`, which isn't written yet.
 
 **Where you step in:** confirming the discovery summary, confirming the
 test seams `/to-spec` proposes, approving the ticket breakdown, answering
-the questions `builder-check` says only you can answer, and reviewing and
-merging each PR. A Phase 2 session comes back to you only if a ticket
+the questions `builder-check` says only you can answer, **approving every
+slice's plan** before any code is written, and reviewing and merging each
+PR. Approving the plan catches a wrong approach while it's still cheap; it
+is the one stop inside Phase 2. Otherwise a Phase 2 session comes back to you only if a ticket
 doesn't answer something, CI stays red after two fixes, or debugging fails
 three times.
 
