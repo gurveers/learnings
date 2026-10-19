@@ -51,3 +51,4 @@ as the change it describes.
 | 13 | `AGENTS.md` for other agents | Only if scope widens beyond Claude Code |
 | 14 | Auto-delete merged branches; hide empty Wiki and Projects tabs | Owner to decide |
 | 15 | Run Compose Preview Screenshot tests somewhere. `/verify` doesn't run them (they have their own Gradle task, not `testDebugUnitTest`), so today they only run if called by hand | Stage 13 (CI), or adding them to `/verify` |
+| 16 | **Write `/slice <issue>`**: issue → branch `<area>/<N>-<slug>` → plan mode → build test-first → `/verify <N>` → `android-reviewer` and mattpocock `code-review` in parallel → builder checks each finding against the code, then fixes it or says why not in the PR → PR "Closes #N" with Verified / Not verified | Parked by owner 2026-10-19; stages 6–8 are decided, so nothing blocks it |
