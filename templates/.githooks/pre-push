@@ -1,0 +1,25 @@
+#!/bin/sh
+# Blocks pushes to main and force pushes, for repos without server-side
+# branch protection (e.g. a private repo on GitHub Free). Git runs this on the
+# push itself, so it applies whatever tool or flags started the push.
+# Enable once per clone: git config core.hooksPath .githooks
+# Client-side only: it stops mistakes, not a determined bypass.
+
+zero=0000000000000000000000000000000000000000
+
+while read -r local_ref local_sha remote_ref remote_sha; do
+  case "$remote_ref" in
+    refs/heads/main)
+      echo "pre-push: pushing to main is blocked. Push a branch and open a PR." >&2
+      exit 1 ;;
+  esac
+  # Deleting a remote branch other than main, or creating a new one: allowed.
+  [ "$local_sha" = "$zero" ] && continue
+  [ "$remote_sha" = "$zero" ] && continue
+  # A push that rewrites history: the remote tip isn't in what we're pushing.
+  if ! git merge-base --is-ancestor "$remote_sha" "$local_sha" 2>/dev/null; then
+    echo "pre-push: force push to $remote_ref is blocked (or fetch first if the remote moved)." >&2
+    exit 1
+  fi
+done
+exit 0

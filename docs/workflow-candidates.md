@@ -210,6 +210,8 @@ Sources, checked October 2026:
 
 ## 12. Git, PRs and shipping changes
 
+> **Decided 2026-10-19:** for the app, PR titles `type(area): outcome`; a merged PR template (Closes, Summary diagram, Verified, Not verified, Merge danger) adapted from mattpocock `pr`; and, because the private repo is on GitHub Free, a tested `pre-push` hook instead of a ruleset. `triage` postponed until bug reports pile up.
+
 | | Source | Item | What it does |
 |---|---|---|---|
 | ✅ | mine | `learnings` conventions | `area: outcome`, Verified lines, squash-only, ruleset |

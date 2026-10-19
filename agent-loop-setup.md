@@ -9,7 +9,7 @@
 All the files are in [`templates/`](templates/), laid out as they would be in a repo. Copy them in with:
 
 ```bash
-cp -R templates/.claude templates/android <your-repo>/
+cp -R templates/.claude templates/.githooks templates/.github templates/android <your-repo>/
 ```
 
 ## The loop
@@ -43,6 +43,12 @@ The **deny list** names the destructive commands. Deny rules win over allow rule
 Tested with Claude Code 2.1.299 in a throwaway repo, by asking a nested `claude -p` to run 22 commands across two runs, with `git *` and `gh *` allowed: every dangerous command but one was denied, and feature-branch pushes, a branch called `main-fix`, and a commit message containing "reset --hard" all ran. **One known gap:** prefix rules don't see past `git -C <dir> push -f`. (The first draft also missed `git push origin HEAD:main`; `git push *:main` fixed it.) The GitHub ruleset stays the backstop for `main`. A project's allow rules are ignored until its folder is trusted; deny rules load either way.
 
 **Open question:** `Bash(./gradlew *)` is broad. It allows any task, including `publish` or a custom task that deletes files. The narrower option is to list the tasks one by one (`test*`, `lint*`, `assembleDebug*`). I haven't yet seen which tasks the loop actually needs, so this is a guess.
+
+### 1b. A pre-push hook, when the server can't protect `main` ([`pre-push`](templates/.githooks/pre-push) and its [test](templates/.githooks/pre-push.test.sh))
+
+GitHub only offers rulesets on private repos with a paid plan. Without one, nothing on the server stops a push to `main`, and the deny rules miss `git -C <dir> push -f`. A git `pre-push` hook doesn't read the command text at all: git runs it on the push itself, so it applies whatever tool or flags started it. It blocks pushes to `main` and any push that rewrites history; new branches, deleting feature branches and tags go through.
+
+Enable it once per clone with `git config core.hooksPath .githooks`. Deny rules stop the agent skipping it (`--no-verify`) or switching it off (`core.hooksPath`). The test checks that "blocked" means *the hook* refused, not that git failed for another reason; against a hook that allows everything, all six blocked cases fail. One false positive: a commit message that mentions `--no-verify` is denied too. It's client-side, so it stops mistakes, not a determined bypass.
 
 ### 2. Formatting outside the review ([`ktlint-format.sh`](templates/.claude/hooks/ktlint-format.sh))
 

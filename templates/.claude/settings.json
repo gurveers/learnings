@@ -40,6 +40,9 @@
       "Bash(git clean -f*)",
       "Bash(git checkout .*)",
       "Bash(git restore .*)",
+      "Bash(git * --no-verify*)",
+      "Bash(git -c core.hooksPath*)",
+      "Bash(git config core.hooksPath*)",
 
       "Bash(android sdk remove *)",
       "Bash(adb uninstall *)",
