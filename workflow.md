@@ -132,7 +132,8 @@ Not done yet; this list is the plan, and it will be corrected when it runs.
    for it otherwise.
 4. Copy rcosteira79's `kotlin-coroutines`, `kotlin-flows`, `android-testing`,
    `android-debugging`, `android-source-search` and `android-gradle-logic`,
-   with credit and the upstream commit noted.
+   with their `LICENSE` file (MIT requires the notice to travel with
+   copies), credit, and the upstream commit noted.
 5. Once, at creation: `android-gradle-logic` for the build setup and Google's
    `testing-setup` for the test stack.
 
