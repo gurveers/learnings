@@ -135,6 +135,8 @@ Sources, checked October 2026:
 
 ## 6. Test
 
+> **Decided 2026-10-19:** rcosteira79 `android-testing` (test-first plus Android traps), a `CLAUDE.md` rule that tests come from the spec's acceptance criteria, and Google `testing-setup` once at project creation. Stack decided first, as mine: Google's defaults plus Turbine, fakes before mocks.
+
 | | Source | Item | What it does |
 |---|---|---|---|
 | ✅ | android/skills | `testing-setup` | Testing strategy: unit, UI, screenshot, end-to-end |

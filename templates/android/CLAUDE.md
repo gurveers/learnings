@@ -35,11 +35,16 @@ Applies to all code under `android/`. Complements the root `CLAUDE.md` (product 
 - **Inject dispatchers**, don't hard-code `Dispatchers.IO`. Tests pass a test dispatcher.
 - **No stored scopes in repositories or use cases.** Expose `suspend` functions or `Flow`s; the caller's scope (usually `viewModelScope`) owns the work and its cancellation.
 
+## Testing
+- **Stack:** JUnit4, Compose testing APIs, Robolectric for UI tests without a device, Compose Preview Screenshot Testing, Turbine for `Flow`s.
+- **Fakes first.** A fake repository has behaviour (write, then read back; its `Flow` emits again), so the test checks the outcome. A mock only checks that a call happened. MockK only when a fake isn't possible.
+- **Tests come from the spec.** Each acceptance criterion becomes a test, written and seen failing before the code. Expected values come from the spec, never recomputed the way the code computes them.
+
 ## Specs
 - Acceptance criteria for any UI change say **what the screen should show**: content, state, and the empty, loading and error cases. `/verify` takes a screenshot; this is what it checks against.
 
 ## Not yet decided — write an ADR when you hit these
-Significant decisions get an ADR first. Open ones: error handling across layers (`Result`/sealed vs exceptions; whatever is chosen, never swallow `CancellationException`), and the testing stack (MockK vs Mockito, Turbine, Robolectric vs instrumented). Decide at the point of need, then record the outcome here.
+Significant decisions get an ADR first. Open ones: error handling across layers (`Result`/sealed vs exceptions; whatever is chosen, never swallow `CancellationException`). Decide at the point of need, then record the outcome here.
 
 ## Revisit
 Two calls above were close, and were flagged as such when adopted:
