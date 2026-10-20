@@ -1,6 +1,6 @@
 ---
 name: android-reviewer
-description: Reviews Android/Kotlin changes against this project's conventions and Android-specific runtime hazards. Use after writing or modifying code under android/, and before opening a PR. Read-only — it reports, it does not fix.
+description: Reviews Android/Kotlin changes against this project's conventions and Android-specific runtime hazards. Use after writing or modifying Android or Kotlin code, and before opening a PR. Read-only — it reports, it does not fix.
 tools: Read, Grep, Glob, Bash
 ---
 
