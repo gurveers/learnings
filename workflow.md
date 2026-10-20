@@ -21,7 +21,9 @@ PHASE 1: SHAPE    you + agent, one session per feature        (written, not yet 
    3. Check ───► a fresh agent reads the draft: "what would I have to guess?"
    4. Write ───► docs/specs/<feature>.md in the app repo; you choose: PR or local
            │
-  spec ─► tickets: a separate step, started by you when you decide (to-tickets)
+  /tickets <spec> ──► you start it when you decide (written, not yet run)
+   spec must be final and on main → slices (slice 0 first on a new app) →
+   you approve → fresh-agent check per ticket → GitHub issues, ready-for-agent
            │
 PHASE 2: BUILD    agent alone, one session per ticket
   /slice #12      /slice #13 (after #12 merges)   ...
@@ -73,6 +75,19 @@ doesn't depend on the agent's judgement.
 The app repo is the folder Claude was started in; otherwise `/shape` asks
 for the path. Nothing about the app is stored in this public repo.
 
+### Between the phases: `/tickets`
+
+[`/tickets`](templates/.claude/skills/tickets/SKILL.md) turns a finished
+spec into GitHub issues, only when you run it. It refuses a spec that isn't
+`Status: final` and on `main`, because builder sessions read the spec from
+the repo. It proposes thin vertical slices, each covering named rules and
+sections of the spec, so every rule lands in exactly one ticket; you
+approve the breakdown; a fresh agent checks each ticket can be built from
+the ticket and the spec alone; then it creates a parent issue and
+sub-issues with blocking links. On a new app it adds **slice 0**, the
+foundation (build setup, test stack, CI's first run), ahead of everything
+else.
+
 ### Phase 2: `/slice`
 
 A Phase 2 session starts with no memory and reads one ticket (and the spec
@@ -94,7 +109,7 @@ times.
 |---|---|---|
 | 1–2. Discover and spec | [`/shape`](templates/.claude/skills/shape/SKILL.md): `discover`'s rules folded in, the spec template, its own fresh-agent check, and `to-spec`'s process with the template replaced, writing a file. [`/setup-project`](templates/.claude/skills/setup-project/SKILL.md) when the app repo isn't ready | mine; adapted from addyosmani, superpowers, mattpocock |
 | 3. Design | Plan mode for hard questions; outcomes in the decision log. No extra skill | — |
-| 4. Plan | When you decide: `to-tickets` turns a spec into sub-issues whose acceptance criteria point to its rules (details to settle). Plan mode for each slice in Phase 2 | mattpocock |
+| 4. Plan | [`/tickets`](templates/.claude/skills/tickets/SKILL.md), when you decide: slices whose acceptance criteria point to the spec's rules, a fresh-agent check per ticket, then GitHub issues. Plan mode for each slice in Phase 2 | mine; adapted from mattpocock, superpowers |
 | 5. Build | One slice per session and PR. Knowledge: Google's `android/skills`, `kotlin-lsp`, and `kotlin-coroutines`, `kotlin-flows`, `android-source-search`, `android-gradle-logic` | Google; rcosteira79 |
 | 6. Test | `android-testing` (test first, plus the Android traps). Stack: JUnit4, Compose testing, Robolectric, Compose Preview Screenshot Testing, Turbine, fakes before mocks. `testing-setup` once | rcosteira79; Google |
 | 7. Verify | [`/verify <issue>`](templates/.claude/commands/verify.md) | mine |
@@ -182,7 +197,7 @@ build task, and the GitHub labels wait until specs become tickets.
 
 - Running `/shape` and `/setup-project` for real, and linking the workflow
   into `~/.claude/` ([deferred #24](docs/decisions.md#deferred)).
-- How a spec becomes tickets (#25), and `/slice` itself (#16).
+- `/slice` itself (#16), and running `/tickets` for real.
 - Error handling across layers, the last open item in `.claude/rules/android.md`.
 - Screenshot references rendering differently on macOS and Linux, and the
   CI task names (#21 and #22).
