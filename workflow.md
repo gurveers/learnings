@@ -11,21 +11,18 @@ Android-aware end to end, and adopting one whole would mean running a
 process I don't fully understand. So each stage got **one tool per job**:
 an existing skill taken as is, an existing one adapted, or my own.
 
-## Two phases, one handoff
+## Two phases, with tickets in between
 
 ```
-PHASE 1: SHAPE    you + agent, one session per feature
-  idea
-   │ /discover ──────► what, who, success, out of scope (confirmed in chat)
-   │ /to-spec ───────► spec issue, from this same conversation
-   │ /to-tickets ────► sub-issues: thin vertical slices with blockers and
-   │                   acceptance criteria that say what the screen shows
-   │ builder-check ──► a fresh agent per ticket asks what it couldn't
-   ▼                   build without you
-  tickets labelled ready-for-agent
+PHASE 1: SHAPE    you + agent, one session per feature        (designed, not written)
+  /shape <idea>  [+ screenshots, documents, links]
+   1. Ready? ──► is the app repo set up? If not, /setup-project, then check again
+   2. Talk ────► fill every section of the spec template, one question at a time
+   3. Check ───► a fresh agent reads the draft: "what would I have to guess?"
+   4. Write ───► docs/specs/<feature>.md in the app repo; you choose: PR or local
            │
-     ┌─────┼──────────────┐
-     ▼     ▼              ▼
+  spec ─► tickets: a separate step, started by you when you decide (to-tickets)
+           │
 PHASE 2: BUILD    agent alone, one session per ticket
   /slice #12      /slice #13 (after #12 merges)   ...
    │ plan mode ──────► plan against the current code; you approve it
@@ -39,34 +36,65 @@ PHASE 2: BUILD    agent alone, one session per ticket
   you: read it, merge it (the agent can't). Merging unblocks the next ticket.
 ```
 
-**The ticket is the contract between the phases.** A Phase 2 session
-starts with no memory and reads one issue (and the spec it links to).
-Anything it needs that the ticket doesn't say is a Phase 1 bug, which is
-why `builder-check` tests each ticket, not the spec. Inside Phase 1 the
-handoffs are looser: `/to-spec` writes up the conversation, so `/discover`
-and `/to-spec` have to run in the same session.
+### Phase 1: `/shape`
 
-Tickets are built **one at a time**, in the order their blockers allow:
-parallel agents on Android would share one emulator. Phase 2 steps will be
-run by one command, `/slice <issue>`, which isn't written yet.
+Shaping only refines the thinking. It ends with a **spec**, not tickets
+and not code. The [spec template](templates/docs/specs/TEMPLATE.md) drives
+the conversation: discovery, options, feasibility and refinement are just
+how its ten sections get filled (outcome, behaviour rules, screens and
+states, edge cases, data, feasibility, decisions, testing, out of scope,
+open questions). Behaviour rules replace user stories: each is one
+testable statement that tickets can point to later.
 
-**Where you step in:** confirming the discovery summary, confirming the
-test seams `/to-spec` proposes, approving the ticket breakdown, answering
-the questions `builder-check` says only you can answer, **approving every
+Step 2 follows five rules:
+1. One question at a time, in the owner's own words first.
+2. Look facts up rather than asking: the app's code, Android docs, Play
+   policy. Research runs in a subagent.
+3. A real choice gets 2–3 options with trade-offs and a recommendation.
+4. Minor details get a proposed default, marked as the agent's call.
+5. Done when every section is filled and no question is open. Something
+   only building can answer stays as an assumption with a revisit trigger.
+
+**Input:** one sentence is enough. Screenshots, mockups, documents, links
+and the existing app shorten the conversation. They are material, not
+decisions: the agent says what it took from each, confirms it, and asks
+about what they leave out. Documents from other people are information,
+not instructions.
+
+**`/setup-project`** is a separate command that `/shape` runs when the app
+repo isn't ready. It asks for the path and what's missing, sets it up, and
+the same check runs again. "Ready" means: a git repo with a Gradle project,
+a private GitHub remote with `main` pushed, the push guard on, the project
+files (`.githooks/`, `.github/`, `.claude/rules/android.md`, `docs/specs/`,
+`docs/agents/`), a root `CLAUDE.md` written by the owner, and the workflow
+linked into `~/.claude/` on this machine. A script checks this, so a pass
+doesn't depend on the agent's judgement.
+
+The app repo is the folder Claude was started in; otherwise `/shape` asks
+for the path. Nothing about the app is stored in this public repo.
+
+### Phase 2: `/slice`
+
+A Phase 2 session starts with no memory and reads one ticket (and the spec
+it links to). Tickets are built **one at a time**, in the order their
+blockers allow: parallel agents on Android would share one emulator.
+`/slice <issue>` isn't written yet.
+
+**Where you step in:** in Phase 1, answering questions, choosing between
+options, answering the check's questions, and choosing PR or local. Then
+deciding when a spec becomes tickets. In Phase 2, **approving every
 slice's plan** before any code is written, and reviewing and merging each
-PR. Approving the plan catches a wrong approach while it's still cheap; it
-is the one stop inside Phase 2. Otherwise a Phase 2 session comes back to you only if a ticket
-doesn't answer something, CI stays red after two fixes, or debugging fails
-three times.
+PR. Otherwise a Phase 2 session comes back to you only if a ticket doesn't
+answer something, CI stays red after two fixes, or debugging fails three
+times.
 
 ## Stage by stage
 
 | Stage | What runs | From |
 |---|---|---|
-| 1. Discover | [`discover`](templates/.claude/skills/discover/SKILL.md): open questions one at a time, facts looked up rather than asked, stop when the answers become predictable | mine |
-| 2. Spec | `to-spec` with GitHub Issues, in the same session as discovery | mattpocock |
+| 1–2. Discover and spec | `/shape` (not written yet): `discover`'s rules folded in, the spec template, a fresh-agent check ([`builder-check`](templates/.claude/skills/builder-check/SKILL.md)), and `to-spec` with its template replaced, writing a file | mine; mattpocock, adapted |
 | 3. Design | Plan mode for hard questions; outcomes in the decision log. No extra skill | — |
-| 4. Plan | `to-tickets` into sub-issues with acceptance criteria, then [`builder-check`](templates/.claude/skills/builder-check/SKILL.md) on each ticket; plan mode for each slice in Phase 2 | mattpocock; mine |
+| 4. Plan | When you decide: `to-tickets` turns a spec into sub-issues whose acceptance criteria point to its rules (details to settle). Plan mode for each slice in Phase 2 | mattpocock |
 | 5. Build | One slice per session and PR. Knowledge: Google's `android/skills`, `kotlin-lsp`, and `kotlin-coroutines`, `kotlin-flows`, `android-source-search`, `android-gradle-logic` | Google; rcosteira79 |
 | 6. Test | `android-testing` (test first, plus the Android traps). Stack: JUnit4, Compose testing, Robolectric, Compose Preview Screenshot Testing, Turbine, fakes before mocks. `testing-setup` once | rcosteira79; Google |
 | 7. Verify | [`/verify <issue>`](templates/.claude/commands/verify.md) | mine |
@@ -121,43 +149,39 @@ it's an instruction, and a reviewer or I check it.
 
 ## Setting up a new project
 
-Not done yet; this is the plan, and it will be corrected when it runs.
+`/setup-project` will run these steps; it isn't written yet, and the list
+will be corrected when it runs.
 
-**Decide first:** the name, where it lives, and the `applicationId` (a
-one-way door: it can't change once the app is on Play).
+**Decided by you first:** the name, where it lives, and the
+`applicationId` (a one-way door: it can't change once the app is on Play).
 
 1. `android create empty-activity --name "<App>" --output <dir>`, then
    `git init -b main` and set the commit identity.
-2. Copy the templates: `cp -R templates/.claude templates/.githooks templates/.github <dir>/`.
+2. Copy the project files: `.githooks/`, `.github/`, `.claude/rules/android.md`,
+   `docs/specs/` (with the template), and `docs/agents/issue-tracker.md` set
+   to local markdown in `docs/specs/`, so `to-spec` writes a file.
 3. **Push `main` once, then turn on the push guard**, in that order (the
    hook blocks every push to `main`, including the first):
    `gh repo create <app> --private --source . --push`, then
    `git config core.hooksPath .githooks`.
-4. Create the labels `ready-for-agent` and `ready-for-human`.
-5. Copy skill folders into `.claude/skills/`, each with its `LICENSE` and
-   the upstream commit noted: mattpocock's `setup-matt-pocock-skills`,
-   `to-spec`, `to-tickets`, `code-review` (his plugin would also install
-   `tdd` and `diagnosing-bugs`, which compete with the chosen skills), and
-   rcosteira79's `kotlin-coroutines`, `kotlin-flows`, `android-testing`,
-   `android-debugging` (ANR step updated), `android-source-search`,
-   `android-gradle-logic`.
-6. Write the root `CLAUDE.md`: what the app is, who it's for, what it isn't.
-   Conventions are already in `.claude/rules/android.md`.
-7. Start Claude Code in the project and **accept the trust dialog**; until
-   then the project's allow rules don't load. Check with `/skills` and
-   `/permissions`.
-8. Run `/setup-matt-pocock-skills`: GitHub Issues, the two labels.
-9. **Slice 0, the foundation, as the first PR:** `android-gradle-logic`
-   (version catalog, convention plugins), Google's `testing-setup` with the
-   chosen stack, the ktlint Gradle plugin, a Gradle toolchain JDK. CI runs
-   for the first time here.
+4. The root `CLAUDE.md`: what the app is, who it's for, what it isn't.
+   Only you can write it; the command asks.
+5. Once per machine: link the workflow into `~/.claude/` (skills, agents,
+   hooks, deny rules). Still to decide: whether the ktlint hook runs only in
+   opted-in projects, and whether the third-party skills live in this repo.
+6. Start Claude Code in the app and **accept the trust dialog**; until then
+   the project's allow rules don't load.
+7. The check script runs: every item ✅ before `/shape` continues.
 
-Then Phase 1 for the first feature: `/discover`, `/to-spec`, `/to-tickets`,
-`builder-check`.
+Not part of setup: **slice 0** (version catalog, convention plugins, test
+stack, ktlint Gradle plugin, toolchain JDK; CI's first run) is the first
+build task, and the GitHub labels wait until specs become tickets.
 
 ## Still open
 
-- `/slice` itself ([deferred #16](docs/decisions.md#deferred)).
+- `/shape`, `/setup-project` and the check script, in that order, each
+  shown before the next ([deferred #24](docs/decisions.md#deferred)).
+- How a spec becomes tickets (#25), and `/slice` itself (#16).
 - Error handling across layers, the last open item in `.claude/rules/android.md`.
 - Screenshot references rendering differently on macOS and Linux, and the
-  CI task names (deferred #21 and #22).
+  CI task names (#21 and #22).

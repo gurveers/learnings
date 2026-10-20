@@ -47,6 +47,8 @@ Sources, checked October 2026:
 
 ## 1. Idea and discovery
 
+> **Updated 2026-10-20:** stages 1 and 2 become one command, `/shape`, which ends with a spec file (see [workflow.md](../workflow.md#phase-1-shape)). `discover` is folded in; `to-spec` is kept with its template replaced.
+
 > **Decided 2026-10-15: my own [`discover`](../templates/.claude/skills/discover/SKILL.md) skill**, built from `interview-me` and `brainstorming`. Accuracy over speed: open questions before guesses. `/probe` isn't part of this stage (it tests understanding, not intent). Not yet used on a real project.
 
 | | Source | Item | What it does |
@@ -61,6 +63,8 @@ Sources, checked October 2026:
 | ✅ | product-management plugin | `product-brainstorming` | Thinking partner for product ideas |
 
 ## 2. Spec and requirements
+
+> **Updated 2026-10-20:** stages 1 and 2 become one command, `/shape`, which ends with a spec file (see [workflow.md](../workflow.md#phase-1-shape)). `discover` is folded in; `to-spec` is kept with its template replaced.
 
 > **Decided 2026-10-15, to revisit after real use:** mattpocock `to-spec` **as is**, with GitHub Issues as the tracker (the spec is an issue), then my own [`builder-check`](../templates/.claude/skills/builder-check/SKILL.md) step, plus a rule in [`.claude/rules/android.md`](../templates/.claude/rules/android.md) that acceptance criteria say what the screen shows. addyosmani's spec skill repeats project-level setup in every spec. `constraint-driven-development` is project-wide, so it moves to stage 13. **Updated 2026-10-20:** `builder-check` now runs on each ticket after `to-tickets` (stage 4), since the ticket is what the builder reads.
 
