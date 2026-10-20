@@ -4,6 +4,10 @@
 f=$(jq -r '.tool_input.file_path // empty')
 case "$f" in *.kt|*.kts) ;; *) exit 0 ;; esac
 [ -f "$f" ] || exit 0
+# Opt-in: only format in repos that use this workflow's conventions, so a
+# hook installed for every project doesn't reformat repos with other styles.
+root=$(git -C "$(dirname "$f")" rev-parse --show-toplevel 2>/dev/null) || exit 0
+[ -f "$root/.claude/rules/android.md" ] || exit 0
 # No ktlint installed: skip formatting. Without this line every Kotlin edit
 # came back as "could not auto-fix … command not found" and Claude was asked
 # to fix a formatting error it couldn't fix. Formatting is a convenience;

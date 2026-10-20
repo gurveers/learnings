@@ -15,7 +15,7 @@ that enforce that.**
 | [Setup guide](android-ai-setup.md) | Configuring Claude Code for Android: toolchain, `CLAUDE.md` layers, permissions, a secrets hook, a ktlint hook, Android CLI and skills | Used day to day |
 | [Agent loop](agent-loop-setup.md) | Letting the agent close the loop: build, test, run, and a reviewer that knows Android | Designed, not yet run end to end |
 | [Workflow v1](workflow.md) | One feature from idea to merged PR: which skill runs at each stage, where it came from, and which rules are enforced rather than asked | Assembled, not yet run |
-| [`templates/`](templates/) | The agent loop's files, laid out to copy into a repo | Both hooks tested (secrets 21/21, ktlint 5/5); git deny rules tested (21/22; the miss is `git -C`); pre-push hook tested (11/11); `/shape` readiness check tested (15/15); CI bar check tested (13/13), CI workflow not yet run; the rest untested |
+| [`templates/`](templates/) | The agent loop's files, laid out to copy into a repo | Both hooks tested (secrets 21/21, ktlint 7/7); git deny rules tested (21/22; the miss is `git -C`); pre-push hook tested (11/11); `/shape` readiness check tested (15/15); CI bar check tested (13/13), CI workflow not yet run; the rest untested |
 
 ## Start here
 
@@ -65,7 +65,7 @@ per stage; its stage table says which piece came from where.
 |---|---|---|
 | [android/skills](https://github.com/android/skills) | Apache-2.0 | Installed as is: Android API skills, `android-cli`, `testing-setup` |
 | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Installed as is: `to-spec`, `to-tickets`, `code-review`. The PR template is adapted from `pr` |
-| [rcosteira79/android-skills](https://github.com/rcosteira79/android-skills) | MIT | Six skills copied into the project with their licence: coroutines, flows, testing, debugging, source search, Gradle logic |
+| [rcosteira79/android-skills](https://github.com/rcosteira79/android-skills) | MIT | Six skills vendored in [`vendor/`](vendor/rcosteira79-android-skills/UPSTREAM.md) with their licence, pinned to a commit: coroutines, flows, testing, debugging, source search, Gradle logic |
 | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | MIT | Adapted: `discover` (from `interview-me`) and the CI bar check |
 | [obra/superpowers](https://github.com/obra/superpowers) | MIT | Adapted: `discover` (from `brainstorming`) and `builder-check` |
 

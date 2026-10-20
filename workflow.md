@@ -135,7 +135,7 @@ it's an instruction, and a reviewer or I check it.
 | No pushes to `main`, no history rewrites | `pre-push` hook, plus deny rules | Hook 11/11; deny rules 21/22 (`git -C` gets past them, not the hook) |
 | The hook isn't skipped or switched off | `--no-verify` and `core.hooksPath` denied | Yes |
 | No secrets read or written | `PreToolUse` hook, fails closed without `jq` | 21/21 |
-| Kotlin formatted | `PostToolUse` ktlint hook | 5/5 |
+| Kotlin formatted, only in repos that opt in | `PostToolUse` ktlint hook | 7/7 |
 | The bar isn't lowered to get to green | Bar check in CI | 13/13; CI not yet run |
 | It builds and the tests pass on a clean machine | CI | Not yet run |
 | Don't merge red | Me | — |
@@ -182,9 +182,11 @@ will be corrected when it does. Its readiness check,
    `git config core.hooksPath .githooks`.
 4. The root `CLAUDE.md`: what the app is, who it's for, what it isn't.
    Only you can write it; the command asks.
-5. Once per machine: link the workflow into `~/.claude/` (skills, agents,
-   hooks, deny rules). Still to decide: whether the ktlint hook runs only in
-   opted-in projects, and whether the third-party skills live in this repo.
+5. Once per machine: link the workflow into `~/.claude/` (done on mine,
+   2026-10-20): skills and vendored skills as symlinks, the deny rules and
+   both hooks in `~/.claude/settings.json`. The ktlint hook only formats in
+   repos that have `.claude/rules/android.md`. The project's own
+   `.claude/settings.json` holds just the allow list for the build loop.
 6. Start Claude Code in the app and **accept the trust dialog**; until then
    the project's allow rules don't load.
 7. The check script runs: every item ✅ before `/shape` continues.

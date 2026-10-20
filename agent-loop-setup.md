@@ -54,6 +54,8 @@ Enable it once per clone with `git config core.hooksPath .githooks`. Deny rules 
 
 After every `.kt`/`.kts` edit, ktlint formats the file. Anything it can't fix goes back to Claude with exit code 2, so Claude fixes it in the same turn. Because of this, the reviewer agent is told **not** to flag formatting at all.
 
+It only formats in repos that opt in by having `.claude/rules/android.md`, so a hook installed for every project doesn't reformat a repo that follows a different style.
+
 If ktlint isn't installed, the hook skips formatting rather than rejecting the edit. An earlier version sent back "command not found" as if it were a formatting error, on every Kotlin edit. A hook should never hand Claude a problem Claude can't fix. Its tests are in [`ktlint-format.test.sh`](templates/.claude/hooks/ktlint-format.test.sh).
 
 ### 3. A secrets guard ([`block-secrets.sh`](templates/.claude/hooks/block-secrets.sh) and its [test](templates/.claude/hooks/block-secrets.test.sh))
