@@ -39,7 +39,7 @@ PHASE 2: BUILD    agent alone, one session per ticket
 ### Phase 1: `/shape`
 
 Shaping only refines the thinking. It ends with a **spec**, not tickets
-and not code. The [spec template](templates/docs/specs/TEMPLATE.md) drives
+and not code. The [spec template](templates/.claude/skills/shape/spec-template.md) drives
 the conversation: discovery, options, feasibility and refinement are just
 how its ten sections get filled (outcome, behaviour rules, screens and
 states, edge cases, data, feasibility, decisions, testing, out of scope,

@@ -112,6 +112,7 @@ before the first commit on a new machine.
   passes.
 - ktlint hook changed → `bash templates/.claude/hooks/ktlint-format.test.sh`
   passes.
+- `/shape` check script changed → `bash templates/.claude/skills/shape/check-project.test.sh` passes.
 - CI bar check changed → `bash templates/.github/scripts/check-bar.test.sh` passes.
 - pre-push hook changed → `bash templates/.githooks/pre-push.test.sh` passes.
 - `templates/.claude/settings.json` changed → `jq . templates/.claude/settings.json`
