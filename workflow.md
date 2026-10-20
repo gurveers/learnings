@@ -14,7 +14,7 @@ an existing skill taken as is, an existing one adapted, or my own.
 ## Two phases, with tickets in between
 
 ```
-PHASE 1: SHAPE    you + agent, one session per feature        (designed, not written)
+PHASE 1: SHAPE    you + agent, one session per feature        (written, not yet run)
   /shape <idea>  [+ screenshots, documents, links]
    1. Ready? ──► is the app repo set up? If not, /setup-project, then check again
    2. Talk ────► fill every section of the spec template, one question at a time
@@ -92,7 +92,7 @@ times.
 
 | Stage | What runs | From |
 |---|---|---|
-| 1–2. Discover and spec | `/shape` (not written yet): `discover`'s rules folded in, the spec template, a fresh-agent check ([`builder-check`](templates/.claude/skills/builder-check/SKILL.md)), and `to-spec` with its template replaced, writing a file | mine; mattpocock, adapted |
+| 1–2. Discover and spec | [`/shape`](templates/.claude/skills/shape/SKILL.md): `discover`'s rules folded in, the spec template, its own fresh-agent check, and `to-spec`'s process with the template replaced, writing a file. [`/setup-project`](templates/.claude/skills/setup-project/SKILL.md) when the app repo isn't ready | mine; adapted from addyosmani, superpowers, mattpocock |
 | 3. Design | Plan mode for hard questions; outcomes in the decision log. No extra skill | — |
 | 4. Plan | When you decide: `to-tickets` turns a spec into sub-issues whose acceptance criteria point to its rules (details to settle). Plan mode for each slice in Phase 2 | mattpocock |
 | 5. Build | One slice per session and PR. Knowledge: Google's `android/skills`, `kotlin-lsp`, and `kotlin-coroutines`, `kotlin-flows`, `android-source-search`, `android-gradle-logic` | Google; rcosteira79 |
@@ -149,8 +149,9 @@ it's an instruction, and a reviewer or I check it.
 
 ## Setting up a new project
 
-`/setup-project` will run these steps; it isn't written yet, and the list
-will be corrected when it runs.
+[`/setup-project`](templates/.claude/skills/setup-project/SKILL.md) runs these steps; it's written but hasn't run yet, so the list
+will be corrected when it does. Its readiness check,
+[`check-project.sh`](templates/.claude/skills/shape/check-project.sh), is tested (15/15).
 
 **Decided by you first:** the name, where it lives, and the
 `applicationId` (a one-way door: it can't change once the app is on Play).
@@ -179,8 +180,8 @@ build task, and the GitHub labels wait until specs become tickets.
 
 ## Still open
 
-- `/shape`, `/setup-project` and the check script, in that order, each
-  shown before the next ([deferred #24](docs/decisions.md#deferred)).
+- Running `/shape` and `/setup-project` for real, and linking the workflow
+  into `~/.claude/` ([deferred #24](docs/decisions.md#deferred)).
 - How a spec becomes tickets (#25), and `/slice` itself (#16).
 - Error handling across layers, the last open item in `.claude/rules/android.md`.
 - Screenshot references rendering differently on macOS and Linux, and the

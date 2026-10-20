@@ -49,7 +49,7 @@ Sources, checked October 2026:
 
 > **Updated 2026-10-20:** stages 1 and 2 become one command, `/shape`, which ends with a spec file (see [workflow.md](../workflow.md#phase-1-shape)). `discover` is folded in; `to-spec` is kept with its template replaced.
 
-> **Decided 2026-10-15: my own [`discover`](../templates/.claude/skills/discover/SKILL.md) skill**, built from `interview-me` and `brainstorming`. Accuracy over speed: open questions before guesses. `/probe` isn't part of this stage (it tests understanding, not intent). Not yet used on a real project.
+> **Decided 2026-10-15: my own `discover` skill (since folded into [`/shape`](../templates/.claude/skills/shape/SKILL.md))**, built from `interview-me` and `brainstorming`. Accuracy over speed: open questions before guesses. `/probe` isn't part of this stage (it tests understanding, not intent). Not yet used on a real project.
 
 | | Source | Item | What it does |
 |---|---|---|---|

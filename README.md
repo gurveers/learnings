@@ -15,7 +15,7 @@ that enforce that.**
 | [Setup guide](android-ai-setup.md) | Configuring Claude Code for Android: toolchain, `CLAUDE.md` layers, permissions, a secrets hook, a ktlint hook, Android CLI and skills | Used day to day |
 | [Agent loop](agent-loop-setup.md) | Letting the agent close the loop: build, test, run, and a reviewer that knows Android | Designed, not yet run end to end |
 | [Workflow v1](workflow.md) | One feature from idea to merged PR: which skill runs at each stage, where it came from, and which rules are enforced rather than asked | Assembled, not yet run |
-| [`templates/`](templates/) | The agent loop's files, laid out to copy into a repo | Both hooks tested (secrets 21/21, ktlint 5/5); git deny rules tested (21/22; the miss is `git -C`); pre-push hook tested (11/11); CI bar check tested (13/13), CI workflow not yet run; the rest untested |
+| [`templates/`](templates/) | The agent loop's files, laid out to copy into a repo | Both hooks tested (secrets 21/21, ktlint 5/5); git deny rules tested (21/22; the miss is `git -C`); pre-push hook tested (11/11); `/shape` readiness check tested (15/15); CI bar check tested (13/13), CI workflow not yet run; the rest untested |
 
 ## Start here
 
