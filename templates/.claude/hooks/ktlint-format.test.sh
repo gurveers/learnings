@@ -29,6 +29,9 @@ expect() { # description, want_code
   fi
 }
 
+# The formatting cases run inside an opted-in repo (.claude/rules/android.md).
+git init -q "$work"; mkdir -p "$work/.claude/rules"; touch "$work/.claude/rules/android.md"
+
 echo "Never reject an edit Claude can't fix:"
 printf '# notes\n' > "$work/notes.md"
 run "$work/notes.md"; expect "non-Kotlin file is ignored" 0
@@ -38,6 +41,18 @@ bin="$work/bin"; mkdir "$bin"; ln -s "$(command -v jq)" "$bin/jq"
 run "$work/NoKtlint.kt" "$bin"; expect "ktlint missing: skip, don't reject" 0
 
 if command -v ktlint >/dev/null 2>&1; then
+  echo "Only in opted-in repos:"
+  other=$(mktemp -d); git init -q "$other"
+  printf 'fun  main( ) {  println("x") }\n' > "$other/Elsewhere.kt"
+  before=$(cat "$other/Elsewhere.kt")
+  run "$other/Elsewhere.kt"; expect "repo without .claude/rules/android.md: edit accepted" 0
+  if [ "$(cat "$other/Elsewhere.kt")" = "$before" ]; then
+    pass=$((pass + 1)); printf '  ok   %s\n' "…and the file was left alone"
+  else
+    fail=$((fail + 1)); printf '  FAIL %s\n' "file in a repo that didn't opt in was reformatted"
+  fi
+  rm -rf "$other"
+
   echo "With ktlint installed:"
   printf 'fun  main( ) {  println("x") }\n' > "$work/Fixable.kt"
   before=$(cat "$work/Fixable.kt")
@@ -50,7 +65,7 @@ if command -v ktlint >/dev/null 2>&1; then
   printf 'import java.util.*\n\nfun main() {}\n' > "$work/Unfixable.kt"
   run "$work/Unfixable.kt"; expect "unfixable violation goes back to Claude" 2
 else
-  skipped=3; echo "ktlint not installed: skipped 3 formatting cases"
+  skipped=5; echo "ktlint not installed: skipped 5 formatting cases"
 fi
 
 printf '\n%d passed, %d failed, %d skipped\n' "$pass" "$fail" "$skipped"
