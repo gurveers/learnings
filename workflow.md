@@ -26,7 +26,7 @@ PHASE 1: SHAPE    you + agent, one session per feature        (written, not yet 
    you approve → fresh-agent check per ticket → GitHub issues, ready-for-agent
            │
 PHASE 2: BUILD    agent alone, one session per ticket
-  /slice #12      /slice #13 (after #12 merges)   ...
+  /build #12      /build #13 (after #12 merges)   ...
    │ plan mode ──────► plan against the current code; you approve it
    │ build ──────────► tests first, from the ticket's acceptance criteria
    │ /verify #12 ────► lint, tests, build, run the app, screenshot,
@@ -88,12 +88,12 @@ sub-issues with blocking links. On a new app it adds **slice 0**, the
 foundation (build setup, test stack, CI's first run), ahead of everything
 else.
 
-### Phase 2: `/slice`
+### Phase 2: `/build`
 
 A Phase 2 session starts with no memory and reads one ticket (and the spec
 it links to). Tickets are built **one at a time**, in the order their
 blockers allow: parallel agents on Android would share one emulator.
-[`/slice <issue>`](templates/.claude/skills/slice/SKILL.md) runs one ticket to a PR (written, not yet run): ready check, branch, plan you approve (listing the skills it will use), test-first build, `/verify`, two reviewers, PR, CI with at most two fix attempts. It runs in a session started in the app repo.
+[`/build <issue>`](templates/.claude/skills/build/SKILL.md) runs one ticket to a PR (written, not yet run): ready check, branch, plan you approve (listing the skills it will use), test-first build, `/verify`, two reviewers, PR, CI with at most two fix attempts. It runs in a session started in the app repo.
 
 **Where you step in:** in Phase 1, answering questions, choosing between
 options, answering the check's questions, and choosing PR or local. Then
@@ -113,7 +113,7 @@ times.
 | 5. Build | One slice per session and PR. Knowledge: Google's `android/skills`, `kotlin-lsp`, and `kotlin-coroutines`, `kotlin-flows`, `android-source-search`, `android-gradle-logic` | Google; rcosteira79 |
 | 6. Test | `android-testing` (test first, plus the Android traps). Stack: JUnit4, Compose testing, Robolectric, Compose Preview Screenshot Testing, Turbine, fakes before mocks. `testing-setup` once | rcosteira79; Google |
 | 7. Verify | [`/verify <issue>`](templates/.claude/commands/verify.md) | mine |
-| 8. Review | [`android-reviewer`](templates/.claude/agents/android-reviewer.md) (conventions, Android hazards) and a spec reviewer inside `/slice` (missing, not asked for, looks wrong), in parallel, reported separately | mine; spec review adapted from mattpocock |
+| 8. Review | [`android-reviewer`](templates/.claude/agents/android-reviewer.md) (conventions, Android hazards) and a spec reviewer inside `/build` (missing, not asked for, looks wrong), in parallel, reported separately | mine; spec review adapted from mattpocock |
 | 9. Debug | `android-debugging`, with its ANR step updated | rcosteira79 |
 | 11. Security | [Secrets hook](templates/.claude/hooks/block-secrets.sh), [deny rules](templates/.claude/settings.json), Google's intent-security and Play-policy skills, `/security-review` by hand for risky slices | mine; Google; built in |
 | 12. Git and PRs | Branch `<area>/<N>-<slug>`, title `type(area): outcome`, [PR template](templates/.github/pull_request_template.md) with Merge danger, [`pre-push` hook](templates/.githooks/pre-push) | mine; mattpocock's `pr`, adapted |
@@ -141,7 +141,7 @@ it's an instruction, and a reviewer or I check it.
 | Don't merge red | Me | — |
 | Tests first, from the acceptance criteria | `.claude/rules/android.md`, `android-testing` | Instruction only |
 | Conventions followed | [`.claude/rules/android.md`](templates/.claude/rules/android.md), checked by both reviewers | Instruction, then review |
-| No "done" without evidence | `/verify`; `/slice` won't open a PR before it | Instruction (`/slice` not written) |
+| No "done" without evidence | `/verify`; `/build` won't open a PR before it | Instruction (`/build` written, not yet run) |
 
 ## How the pieces were chosen
 
@@ -199,7 +199,7 @@ build task, and the GitHub labels wait until specs become tickets.
 
 - Running `/shape` and `/setup-project` for real, and linking the workflow
   into `~/.claude/` ([deferred #24](docs/decisions.md#deferred)).
-- Running `/tickets` and `/slice` for real.
+- Running `/tickets` and `/build` for real.
 - Error handling across layers, the last open item in `.claude/rules/android.md`.
 - Screenshot references rendering differently on macOS and Linux, and the
   CI task names (#21 and #22).
