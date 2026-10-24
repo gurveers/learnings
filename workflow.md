@@ -155,11 +155,13 @@ it's an instruction, and a reviewer or I check it.
 - **Decide before a skill decides for you.** `kotlin-coroutines` and
   `testing-setup` would have settled questions I'd left open, so I settled
   them first.
-- **Prefer an existing tool until it's seen to fail.** mattpocock's `to-spec`,
-  `to-tickets` and `code-review` are taken as is, and marked for review after
-  real use.
-- **GitHub for everything.** Spec = issue, slices = sub-issues, PR closes the
-  issue. One system, and the skills write the records.
+- **Prefer an existing tool until it's seen to fail.** Where one didn't fit
+  as is (mattpocock's `to-spec`, `to-tickets` and `code-review` need his
+  setup in every app), its process is carried into our own skill, credited,
+  and marked for review after real use.
+- **Specs and decisions in the repo, tickets on GitHub.** The spec and the
+  decision records are files, reviewed and merged like code; slices are
+  sub-issues, and the PR closes its ticket. The skills write the records.
 - **The human gate is the merge.** Everything before it is the agent's job,
   and everything it claims comes with evidence.
 
