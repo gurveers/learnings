@@ -106,7 +106,7 @@ mark them as the agent's call; ask the user the rest in one message.
    fails, put `Blocked by: #<n>` at the top of the ticket instead.
 5. List what was created: number, title, blocked by.
 
-Then stop. Building starts with `/slice` on a ticket with no open blockers.
+Then stop. Building starts with `/build` on a ticket with no open blockers.
 
 ---
 Adapted from `to-tickets` ([mattpocock/skills](https://github.com/mattpocock/skills), MIT)

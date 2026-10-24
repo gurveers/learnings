@@ -1,5 +1,5 @@
 ---
-name: slice
+name: build
 description: Build one ticket of a private Android app, from issue to pull request - a plan the user approves, a test-first build, /verify, two reviewers, a PR and CI. Never merges.
 argument-hint: "<issue number>"
 disable-model-invocation: true
