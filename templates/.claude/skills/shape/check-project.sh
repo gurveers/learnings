@@ -42,7 +42,7 @@ fi
 
 # 4. project files
 missing=""
-for f in .github/workflows/ci.yml .github/scripts/check-bar.sh .github/pull_request_template.md .claude/rules/android.md docs/specs; do
+for f in .github/workflows/ci.yml .github/scripts/check-bar.sh .github/pull_request_template.md .claude/rules/android.md docs/specs docs/adr; do
   [ -e "$f" ] || missing="$missing $f"
 done
 if [ -z "$missing" ]; then ok "project files"; else bad "project files (missing:$missing)"; fi

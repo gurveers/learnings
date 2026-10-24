@@ -27,7 +27,7 @@ files to copy are three levels up, in `templates/`. The check script is
       then `git init -b main`. If no commit identity is set, ask for one.
    2. *Project files:* copy `templates/.githooks/`, `templates/.github/` and
       `templates/.claude/rules/android.md` into the repo, and create
-      `docs/specs/` with a `.gitkeep`. Write `.claude/settings.json` with only
+      `docs/specs/` and `docs/adr/`, each with a `.gitkeep`. Write `.claude/settings.json` with only
       the template's allow list
       (`jq '{permissions: {allow: .permissions.allow}}' templates/.claude/settings.json`):
       the hooks and deny rules are installed for the whole machine. If a file already exists, show the

@@ -45,11 +45,14 @@ Five rules:
    to justify it.
 2. **Look facts up; don't ask for them.** Decisions are the user's; facts
    are yours. Send research to a read-only subagent and keep only its
-   findings: the app's code, `android docs search "<keywords>"`, API levels
+   findings: the app's code and its decision records (`docs/adr/`),
+   `android docs search "<keywords>"`, API levels
    against `minSdk`, permissions, background limits, Play policy
    (`play-policy-insights`), libraries, AOSP source
    (`android-source-search`). Every finding names its source. Flag
-   one-way doors (schema changes, permissions, `applicationId`).
+   one-way doors (schema changes, permissions, `applicationId`), and any
+   choice that goes against an accepted record: note it in section 7, and
+   `/build` writes the record that supersedes it.
 3. **A real choice gets 2–3 options**, each with its trade-offs and the
    research behind it, and your recommendation. Think wider privately and
    drop the weak options before showing any.

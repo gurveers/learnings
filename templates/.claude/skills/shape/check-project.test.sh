@@ -23,9 +23,9 @@ make_ready() {
   ( cd "$d"
     git config user.email t@example.com; git config user.name t
     touch settings.gradle.kts
-    mkdir -p .githooks .github/workflows .github/scripts .claude/rules docs/specs
+    mkdir -p .githooks .github/workflows .github/scripts .claude/rules docs/specs docs/adr
     printf '#!/bin/sh\nexit 0\n' > .githooks/pre-push; chmod +x .githooks/pre-push
-    touch .github/workflows/ci.yml .github/scripts/check-bar.sh .github/pull_request_template.md .claude/rules/android.md docs/specs/.keep
+    touch .github/workflows/ci.yml .github/scripts/check-bar.sh .github/pull_request_template.md .claude/rules/android.md docs/specs/.keep docs/adr/.keep
     echo "# Habits: a habit tracker for me" > CLAUDE.md
     git add -A; git commit -qm init
     git remote add origin "$d.remote.git"; git push -q origin main
@@ -51,6 +51,7 @@ check "push guard off"        1 "❌ push guard on"                 "git config 
 check "pre-push missing"      1 "❌ push guard on"                 "rm .githooks/pre-push"
 check "rules file missing"    1 ".claude/rules/android.md"        "rm .claude/rules/android.md"
 check "CI missing"            1 ".github/workflows/ci.yml"        "rm .github/workflows/ci.yml"
+check "ADR folder missing"    1 "docs/adr"                        "rm -r docs/adr"
 check "CLAUDE.md placeholder" 1 "❌ CLAUDE.md written"             "echo 'TODO(owner): what the app is' >> CLAUDE.md"
 check "CLAUDE.md missing"     1 "❌ CLAUDE.md written"             "rm CLAUDE.md"
 

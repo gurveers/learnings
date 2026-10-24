@@ -44,7 +44,7 @@ How code in this project is written. Loaded automatically from `.claude/rules/`.
 - Acceptance criteria (on each ticket) for any UI change say **what the screen should show**: content, state, and the empty, loading and error cases. `/verify` takes a screenshot; this is what it checks against.
 
 ## Not yet decided — write an ADR when you hit these
-Significant decisions get an ADR first. Open ones: error handling across layers (`Result`/sealed vs exceptions; whatever is chosen, never swallow `CancellationException`). Decide at the point of need, then record the outcome here.
+Significant decisions get a record in `docs/adr/` first (`/build` writes them). Open ones: error handling across layers (`Result`/sealed vs exceptions; whatever is chosen, never swallow `CancellationException`). Decide at the point of need, then record the outcome here.
 
 ## Revisit
 Two calls above were close, and were flagged as such when adopted:

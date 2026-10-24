@@ -24,8 +24,8 @@ Check all of these, and stop with the reason if any fails:
   `Blocked by:` line);
 - the working tree is clean; then `git switch main && git pull --ff-only`.
 
-Read the ticket, the spec it links (on `main`), `CLAUDE.md` and
-`.claude/rules/android.md`.
+Read the ticket, the spec it links (on `main`), `CLAUDE.md`,
+`.claude/rules/android.md` and the accepted records in `docs/adr/`.
 
 ## 2. Branch
 
@@ -41,6 +41,12 @@ Enter plan mode and write a plan against the code as it is now:
 - **the skills you'll use for this ticket** (for example `edge-to-edge`,
   `kotlin-flows`, `android-testing`), so a missing one shows up now;
 - one-way doors: schema migrations, new permissions, manifest changes;
+- **app-wide decisions**: any choice that reaches past this ticket and
+  costs real work to undo (a library, storage, the shape of a layer, a
+  module boundary), that no accepted record or the spec already makes.
+  Give each its options and your recommendation; the approved one becomes
+  a record in step 4. Going against an accepted record needs one that
+  supersedes it;
 - anything you're leaving out because it isn't in the ticket.
 
 Write no code until the user approves the plan.
@@ -50,6 +56,14 @@ Write no code until the user approves the plan.
 For each acceptance criterion: write the test, run it, see it fail for the
 right reason, write the least code that passes it, and run it again.
 Commit after each criterion goes green. Follow `.claude/rules/android.md`.
+
+Write each decision approved in the plan as
+`docs/adr/NNNN-<short-slug>.md` from [adr-template.md](adr-template.md),
+next to this file: the next free number, `Status: Accepted`, the options
+as they were shown. Merging the PR accepts it. Never edit a merged record
+beyond its status line: a changed decision gets a new record, and the old
+one becomes `Superseded by NNNN`. If a record changes a convention, update
+`.claude/rules/android.md` in the same PR.
 
 Stop and ask the user if:
 - the ticket doesn't answer something that changes what gets built (note
@@ -100,8 +114,8 @@ Push the branch (`git push -u origin <branch>`) and open the PR with
   `feat(habits): set and clear a reminder time`;
 - **body** from `.github/pull_request_template.md`: `Closes #<N>`, a small
   Summary diagram, the Verified table from `/verify`, Not verified, Merge
-  danger (one-way or two-way door, blast radius), and any review findings
-  left unfixed with the reason.
+  danger (one-way or two-way door, blast radius), the decision records
+  added, and any review findings left unfixed with the reason.
 
 ## 8. CI
 
@@ -120,4 +134,6 @@ and anything the user should look at. Then stop. Merging is the user's.
 The spec review is adapted from `code-review`
 ([mattpocock/skills](https://github.com/mattpocock/skills), MIT); checking
 findings before acting on them, from `receiving-code-review`
-([obra/superpowers](https://github.com/obra/superpowers), MIT).
+([obra/superpowers](https://github.com/obra/superpowers), MIT); decision
+records, from `documentation-and-adrs`
+([addyosmani/agent-skills](https://github.com/addyosmani/agent-skills), MIT).

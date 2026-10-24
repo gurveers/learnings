@@ -118,11 +118,12 @@ times.
 | 11. Security | [Secrets hook](templates/.claude/hooks/block-secrets.sh), [deny rules](templates/.claude/settings.json), Google's intent-security and Play-policy skills, `/security-review` by hand for risky slices | mine; Google; built in |
 | 12. Git and PRs | Branch `<area>/<N>-<slug>`, title `type(area): outcome`, [PR template](templates/.github/pull_request_template.md) with Merge danger, [`pre-push` hook](templates/.githooks/pre-push) | mine; mattpocock's `pr`, adapted |
 | 13. CI | [`ci.yml`](templates/.github/workflows/ci.yml) on PRs, plus the [bar check](templates/.github/scripts/check-bar.sh) | mine |
+| 16. Record | Decisions only. The workflow's in [`docs/decisions.md`](docs/decisions.md); a feature's in its spec (§7); the app's own in `docs/adr/`, one [record](templates/.claude/skills/build/adr-template.md) per decision, written by `/build` when an approved plan makes an app-wide choice, merged with the code, superseded rather than edited | mine; adapted from addyosmani |
 
 **Not decided yet:** stage 0 (session setup: the existing `CLAUDE.md` layers
 and plan mode by default, kept but not reviewed), and stages 10
-(performance), 14 (release), 15 (operate) and 16 (learn). Those wait for
-real code.
+(performance), 14 (release) and 15 (operate). Those wait for
+real code. Stage 16 covers decision records only; retros and handoffs wait.
 
 ## Enforced, or only asked
 
@@ -166,7 +167,7 @@ it's an instruction, and a reviewer or I check it.
 
 [`/setup-project`](templates/.claude/skills/setup-project/SKILL.md) runs these steps; it's written but hasn't run yet, so the list
 will be corrected when it does. Its readiness check,
-[`check-project.sh`](templates/.claude/skills/shape/check-project.sh), is tested (15/15).
+[`check-project.sh`](templates/.claude/skills/shape/check-project.sh), is tested (16/16).
 
 **Decided by you first:** the name, where it lives, and the
 `applicationId` (a one-way door: it can't change once the app is on Play).
@@ -174,8 +175,7 @@ will be corrected when it does. Its readiness check,
 1. `android create empty-activity --name "<App>" --output <dir>`, then
    `git init -b main` and set the commit identity.
 2. Copy the project files: `.githooks/`, `.github/`, `.claude/rules/android.md`,
-   `docs/specs/` (with the template), and `docs/agents/issue-tracker.md` set
-   to local markdown in `docs/specs/`, so `to-spec` writes a file.
+   and create `docs/specs/` and `docs/adr/` (the decision records).
 3. **Push `main` once, then turn on the push guard**, in that order (the
    hook blocks every push to `main`, including the first):
    `gh repo create <app> --private --source . --push`, then
