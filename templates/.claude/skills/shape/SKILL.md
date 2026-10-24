@@ -32,9 +32,36 @@ Never write anything about the app into the workflow repo: it's public.
 
 ## 2. Talk
 
-Fill every section of the spec template in conversation. Start with the
-outcome and what's out of scope, play them back, and go on only after an
-explicit "yes" ("sounds good" isn't one: ask what they'd change).
+Fill every section of the spec template in conversation.
+
+**Show the plan first**, before the first question, so the user knows
+what's coming and how to answer. Keep it short:
+
+```
+Here's how this will go:
+1. Outcome and scope (§1, §9): what it's for, what it isn't. I'll play
+   it back and need your explicit yes.
+2. Behaviour (§2–4): the rules, each screen and its states, edge cases.
+   Mostly your answers.
+3. Data and feasibility (§5–6): mostly my research; you choose where
+   there's a real trade-off.
+4. Decisions and testing (§7–8): what we chose and why; where it's tested.
+5. Check and write: a fresh agent looks for gaps, then PR or local.
+One question at a time. Real choices come as 2–3 options with my
+recommendation; small details get a default you can overrule.
+Say if you want to skip ahead or go back.
+```
+
+Adjust it to the inputs: say which parts they already answer ("your
+screenshots cover most of 2; I'll confirm, not ask"). **Signpost** each
+move to the next part in one line: what's settled, what's next, and where
+that is in the plan ("Scope agreed. Part 2 of 5, behaviour: first the
+rules."). If the user jumps around, follow them and say which parts are
+still open.
+
+Part 1 comes first: play the outcome and what's out of scope back, and go
+on only after an explicit "yes" ("sounds good" isn't one: ask what they'd
+change).
 
 **Inputs.** The idea may come with screenshots, mockups, documents or
 links, and the app itself can be read or run (`android run`, then
