@@ -6,6 +6,11 @@ description: Set up a private Android app repo for this workflow, or finish one 
 Get an app repo to the point where `check-project.sh` passes. Fix only what
 the check says is missing; never overwrite or delete what's there.
 
+**Plan mode.** Sessions may start in plan mode, which blocks writes. If
+this one is, do the read-only steps there, and before the first fix in
+step 3, ask to leave it (`ExitPlanMode`, saying what you're about to write
+or create). The user approves the switch.
+
 **Where things are.** This skill's folder is linked from the workflow repo.
 Resolve its real path (`cd <this skill's folder> && pwd -P`); the project
 files to copy are three levels up, in `templates/`. The check script is

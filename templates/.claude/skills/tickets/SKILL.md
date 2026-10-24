@@ -11,6 +11,11 @@ publish them as GitHub issues. No code, and no changes to the repo.
 
 Run every `gh` command from inside the app repo, so it targets that repo.
 
+**Plan mode.** Sessions may start in plan mode, which blocks writes. If
+this one is, do the read-only steps there, and before publishing in step
+6, ask to leave it (`ExitPlanMode`, saying what you're about to write or
+create). The user approves the switch.
+
 ## 1. Check the spec
 
 The spec must be **final and on `main`**, because builder sessions read it

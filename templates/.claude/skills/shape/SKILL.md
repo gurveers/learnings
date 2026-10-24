@@ -12,6 +12,13 @@ refines the thinking: no tickets, no code, no changes outside
 The spec template is [spec-template.md](spec-template.md), next to this
 file. The readiness check is [check-project.sh](check-project.sh).
 
+**Plan mode.** Sessions may start in plan mode, which blocks writes. If
+this one is, do the read-only steps there, and before running
+`setup-project` or writing the draft in step 3, ask to leave it
+(`ExitPlanMode`, saying what you're about to write or create). The user
+approves the switch. The talk and the research suit plan mode: they only
+read.
+
 ## 1. Ready?
 
 The app repo is the folder Claude was started in if it's a git repo with a
