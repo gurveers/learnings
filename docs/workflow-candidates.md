@@ -256,6 +256,8 @@ Sources, checked October 2026:
 
 ## 16. Learn and record
 
+> **Decided 2026-10-24:** decision records only, for now. The app keeps one record per app-wide decision in `docs/adr/`, adapted from addyosmani `documentation-and-adrs` (its ADR part only), and written by `/build`. Retros, handoffs and writing skills wait for real use.
+
 | | Source | Item | What it does |
 |---|---|---|---|
 | ✅ | mine | `docs/decisions.md`, `/ailog`, `/post` | Decision log, AI learning log, LinkedIn drafts |

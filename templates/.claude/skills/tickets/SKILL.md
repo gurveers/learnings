@@ -42,7 +42,8 @@ every other slice: version catalog and convention plugins
 (`android-gradle-logic`), the test stack from `.claude/rules/android.md`
 (Google's `testing-setup`), the ktlint Gradle plugin, a Gradle toolchain
 JDK, one example unit test and one screenshot test, and CI passing for the
-first time (fix its task names if needed).
+first time (fix its task names if needed). Its choices are the app's first
+decision records.
 
 ## 3. Agree the breakdown
 
